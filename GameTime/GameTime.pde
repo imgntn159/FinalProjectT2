@@ -1,14 +1,17 @@
-int Mode;
+int mode;
 ArrayList<Bullet> bulletArr = new ArrayList<Bullet>();
 ArrayList<Monster> monsterArr = new ArrayList<Monster>();
 Player p1;
 
 void setup(){
-  background(255);
-  Mode = 0;
+  background(0);
+  size(1200, 700);
+   mode = 0;
+   p1 = new Player(width/2,height/2);
 }
 
 void draw(){
+  p1.display();
   fill(0);
   for(Bullet b : bulletArr){
     b.draw();
@@ -19,16 +22,16 @@ void draw(){
 }
 
 public void HitCheck(int bi, int mi,float r){
-  b = bulletArr.get(bi);
-  m = monsterArr.get(mi);
+  Bullet b = bulletArr.get(bi);
+  Monster m = monsterArr.get(mi);
   if (m.getX() <= b.getX() + r &&
     m.getX() >= b.getX() - r &&
     m.getY() <= b.getY() + r &&
     m.getY() >= b.getY() - r){
-    delBullet(bi);
-    m.damage(p1.getBDmg());
+    bulletArr.remove(bi);
+    m.damage(b.getBulletDmg());
     if(m.shouldDie()){
-      delMonster(mi);
+      monsterArr.remove(mi);
     }
   }
 }
