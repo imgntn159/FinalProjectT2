@@ -15,17 +15,17 @@ void draw(){
   fill(0);
   for(int b = 0;b < bulletArr.size();b++){
     for (int m = 0;m < monsterArr.size();m++){
-      HitCheck(b,m,b.getR());
+      HitCheck(b,m,bulletArr.get(b).getR());
     }
   }
-  pl.aSd();
+  p1.aSd();
   for(Bullet b : bulletArr){
     b.draw();
   }
   for(Monster m : monsterArr){
-    m.draw();
+    m.display();
   }
-  rect(mousex,mousey,3,3);//soon to be recticle
+  rect(mouseX,mouseY,3,3);//soon to be recticle
 }
 
 void mousePressed(){
@@ -55,3 +55,24 @@ public void CheckCollide(Monster a, Monster b, float r){//r being the radius che
       a.collision();
    }
 }
+     void keyPressed() {
+  
+    if (key== 'a' || key== 'A') {
+      p1.setLeft(true);
+      p1.setRight(false);
+    }
+    if (key== 'd' || key== 'D') {
+      p1.setLeft(false);
+      p1.setRight(true);
+    }
+  }
+  void keyReleased() {
+   
+   if (key== 'a'||key=='A') {
+      p1.setLeft(false);
+    }
+    if (key == 'd' || key =='D') {
+      p1.setRight(false);
+  }
+}
+
