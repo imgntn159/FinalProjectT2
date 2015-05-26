@@ -1,10 +1,11 @@
 public class Bullet{
-  private float x,y,v;
+  private float x,y,v,r;
   private int bulletDamage;
-  public Bullet(float x,float y,float v){
+  public Bullet(float x,float y,float v, float r){
     this.x = x;
     this.y = y;
     this.v = v;
+    this.r = r;
     bulletDamage = 1;
   }
   //access granted
@@ -16,6 +17,9 @@ public class Bullet{
   }
   public float getV(){
     return v;
+  }
+  public float getR(){
+    return r;
   }
   public void setBulletDmg(int i){
    bulletDamage = i; 

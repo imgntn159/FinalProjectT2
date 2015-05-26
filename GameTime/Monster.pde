@@ -21,7 +21,7 @@ public abstract class Monster{
     return health <= 0;
   }
   public void collision(){
-    //dicks
+    //I'm thinking we should have a similar method in the main also
   }
   public void damage(int d){
    health -= d; //reduces health by d 

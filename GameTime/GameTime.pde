@@ -13,12 +13,23 @@ void setup(){
 void draw(){
   p1.display();
   fill(0);
+  for(int b = 0;b < bulletArr.size();b++){
+    for (int m = 0;m < monsterArr.size();m++){
+      HitCheck(b,m,b.getR());
+    }
+  }
+  pl.aSd();
   for(Bullet b : bulletArr){
     b.draw();
   }
   for(Monster m : monsterArr){
     m.draw();
   }
+  rect(mousex,mousey,3,3);//soon to be recticle
+}
+
+void mousePressed(){
+  //shoot a bullet at the mouse direction
 }
 
 public void HitCheck(int bi, int mi,float r){
@@ -34,4 +45,13 @@ public void HitCheck(int bi, int mi,float r){
       monsterArr.remove(mi);
     }
   }
+}
+
+public void CheckCollide(Monster a, Monster b, float r){//r being the radius check of monster a
+  if (a.getX() <= b.getX() + r &&
+    a.getX() >= b.getX() - r &&
+    a.getY() <= b.getY() + r &&
+    a.getY() >= b.getY() - r){
+      a.collision();
+   }
 }
