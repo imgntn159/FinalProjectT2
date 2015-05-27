@@ -22,5 +22,6 @@ APCS Term 2 Final Project
 
 5-26-15
 -------
--Added move() function that moves the player accordingly to WASD keyboard inputs
+-Added move() function that moves the player accordingly to WASD keyboard inputs.
+
 -Movement is smooth, can also move diagonally
