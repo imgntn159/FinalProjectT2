@@ -1,35 +1,35 @@
-public abstract class Monster{
-  private float x,y,v;
+public abstract class Monster {
+  private float x, y, v;
   private int health;
   //access granted
-  public Monster(int x, int y, int v){
+  public Monster(int x, int y, int v) {
     this.x = x;
     this.y = y;
     this.v = v;
     health = 10;
   }
-  public float getX(){
+  public float getX() {
     return x;
   }
-  public float getY(){
+  public float getY() {
     return y;
   }
-  public float getV(){
+  public float getV() {
     return v;
   }
-  public boolean shouldDie(){
+  public boolean shouldDie() {
     return health <= 0;
   }
-  public void collision(){
+  public void collision() {
     //I'm thinking we should have a similar method in the main also
   }
-  public void damage(int d){
-   health -= d; //reduces health by d 
+  public void damage(int d) {
+    health -= d; //reduces health by d
   }
-  void display(){
+  void display() {
     stroke(0);
     fill(1);
     ellipse(x, y, 2, 2);
   }
 }
-  
+

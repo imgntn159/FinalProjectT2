@@ -1,7 +1,7 @@
-public class Bullet{
-  private float x,y,v,r;
+public class Bullet {
+  private float x, y, v, r;
   private int bulletDamage;
-  public Bullet(float x,float y,float v, float r){
+  public Bullet(float x, float y, float v, float r) {
     this.x = x;
     this.y = y;
     this.v = v;
@@ -9,30 +9,29 @@ public class Bullet{
     bulletDamage = 1;
   }
   //access granted
-  public float getX(){
+  public float getX() {
     return x;
   }
-  public float getY(){
+  public float getY() {
     return y;
   }
-  public float getV(){
+  public float getV() {
     return v;
   }
-  public float getR(){
+  public float getR() {
     return r;
   }
-  public void setBulletDmg(int i){
-   bulletDamage = i; 
+  public void setBulletDmg(int i) {
+    bulletDamage = i;
   }
-  public int getBulletDmg(){
+  public int getBulletDmg() {
     return bulletDamage;
   }
-  public void draw(){
+  public void draw() {
     stroke(0);
     fill(1);
     ellipse(x, y, 2, 2);
   }
 }
-  
 
 
