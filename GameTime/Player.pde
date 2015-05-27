@@ -59,15 +59,19 @@ public class Player {
   void move() {
     if (up) {
       y=y-5;
+      translate(0,5);
     }
     if (down) {
       y=y+5;
+      translate(0,-5);
     }
     if (left) {      
       x=x-5;
+      translate(5,0);
     }
     if (right) {
       x+=5;
+      translate(-5,0);
     }
   }
 }

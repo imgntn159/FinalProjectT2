@@ -2,18 +2,25 @@ int mode;
 ArrayList<Bullet> bulletArr = new ArrayList<Bullet>();
 ArrayList<Monster> monsterArr = new ArrayList<Monster>();
 Player p1;
+Mouse mouse;
 
 void setup() {
 
   size(1200, 700);
   mode = 0;
-  p1 = new Player(200, 200, 100, 100);
+  p1 = new Player(600,350, 20,20);
+  mouse = new Mouse(mouseX,mouseY,3,3);
+  pushMatrix();
 }
 
 void draw() {
+  popMatrix();
+  rect(600,350,20,20);
   background(0);
   p1.display();
   p1.move();
+  mouse.display();
+  mouse.move();
   fill(0);
   for (int b = 0; b < bulletArr.size (); b++) {
     for (int m = 0; m < monsterArr.size (); m++) {
@@ -27,7 +34,9 @@ void draw() {
   for (Monster m : monsterArr) {
     m.display();
   }
-  rect(mouseX, mouseY, 3, 3);//soon to be recticle
+  //rect(mouseX, mouseY, 3, 3);//soon to be recticle
+  rect(900,350,100,100);
+  pushMatrix();
 }
 
 void mousePressed() {
