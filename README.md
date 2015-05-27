@@ -19,3 +19,8 @@ APCS Term 2 Final Project
 - Added recticle
 - Added HitCheck for-loop to draw()
 - Added attack speed timer to Player class
+
+5-26-15
+-------
+-Added move() function that moves the player accordingly to WASD keyboard inputs
+-Player animation of translating along x and y axis is smooth, can also move diagonally
