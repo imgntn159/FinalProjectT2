@@ -37,6 +37,8 @@ public class Player {
   public void aSr() {//resets attack speed timer (attackSppedReset)
     atkSpd = aSCap;
   }
+  
+  //Movement
   void setUp(boolean x) {
     up = x;
   }
@@ -49,13 +51,7 @@ public class Player {
   void setRight(boolean x) {
     right = x;
   }
-  void display() {
-    rectMode(CENTER);
-    stroke(255, 153, 0);
-    rect(x, y, w, h);//rect is easier than ellipse for sprite
-    //for rect(the first 2 param specify the coordinates
-    //last 2 specify the width n height
-  }
+  
   void move(Mouse m) {
     if (up) {
       y=y-5;
@@ -77,6 +73,14 @@ public class Player {
       m.setXmod(m.getXmod() + 5);
       translate(-5,0);
     }
+  }
+  
+  void display() {
+    rectMode(CENTER);
+    stroke(255, 153, 0);
+    rect(x, y, w, h);//rect is easier than ellipse for sprite
+    //for rect(the first 2 param specify the coordinates
+    //last 2 specify the width n height
   }
 }
 

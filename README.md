@@ -24,3 +24,9 @@ APCS Term 2 Final Project
 -------
 - Added move() function that moves the player accordingly to WASD keyboard inputs
 - Movement is smooth, can also move diagonally
+
+5-26-15
+-------
+- Added Mouse class for easier crosshair transforming
+- Movement works on a "camera" system; the camera follows the player
+	- The player is "static"; it stays in the center while obstacles move around it

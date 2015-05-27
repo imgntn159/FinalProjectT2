@@ -8,7 +8,7 @@ void setup() {
   size(1200, 700);
   mode = 0;
   p1 = new Player(600,350, 20,20);
-  mouse = new Mouse(mouseX,mouseY,3,3);
+  mouse = new Mouse(3,3);
   pushMatrix();
 }
 

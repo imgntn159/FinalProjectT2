@@ -1,21 +1,15 @@
 public class Mouse {
-  private float x, y, w, h, xmod, ymod;
-  boolean left = false;
-  boolean right = false;
-  boolean up = false;
-  boolean down = false;
-  public Mouse(float xcor, float ycor, float w, float h) {
-    x=xcor;
-    y=ycor;
+  private float w, h, xmod, ymod;
+  public Mouse(float w, float h) {
     this.w = w;
     this.h = h;
   }
   //access granted
   public float getX() {
-    return x;
+    return mouseX;
   }
   public float getY() {
-    return y;
+    return mouseY;
   }
   public float getXmod() {
     return xmod;
@@ -29,38 +23,6 @@ public class Mouse {
   }
   public void setYmod(float ymod){
     this.ymod = ymod;
-  }
-  
-  //Movement
-  void setUp(boolean x) {
-    up = x;
-  }
-  void setDown(boolean x) {
-    down = x;
-  }
-  void setLeft(boolean x) {
-    left=x;
-  }
-  void setRight(boolean x) {
-    right = x;
-  }
-  void move() {
-    if (up) {
-      y=y-5;
-      translate(0,5);
-    }
-    if (down) {
-      y=y+5;
-      translate(0,-5);
-    }
-    if (left) {      
-      x=x-5;
-      translate(5,0);
-    }
-    if (right) {
-      x+=5;
-      translate(-5,0);
-    }
   }
   
   void display() {
