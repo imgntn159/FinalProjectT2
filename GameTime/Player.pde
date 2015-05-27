@@ -56,21 +56,25 @@ public class Player {
     //for rect(the first 2 param specify the coordinates
     //last 2 specify the width n height
   }
-  void move() {
+  void move(Mouse m) {
     if (up) {
       y=y-5;
+      m.setYmod(m.getYmod() - 5);
       translate(0,5);
     }
     if (down) {
       y=y+5;
+      m.setYmod(m.getYmod() + 5);
       translate(0,-5);
     }
     if (left) {      
       x=x-5;
+      m.setXmod(m.getXmod() - 5);
       translate(5,0);
     }
     if (right) {
       x+=5;
+      m.setXmod(m.getXmod() + 5);
       translate(-5,0);
     }
   }

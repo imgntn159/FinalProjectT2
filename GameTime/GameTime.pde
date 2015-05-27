@@ -5,7 +5,6 @@ Player p1;
 Mouse mouse;
 
 void setup() {
-
   size(1200, 700);
   mode = 0;
   p1 = new Player(600,350, 20,20);
@@ -18,9 +17,10 @@ void draw() {
   rect(600,350,20,20);
   background(0);
   p1.display();
-  p1.move();
+  p1.move(mouse);
   mouse.display();
-  mouse.move();
+  //mouse.display();
+  //mouse.move();
   fill(0);
   for (int b = 0; b < bulletArr.size (); b++) {
     for (int m = 0; m < monsterArr.size (); m++) {
