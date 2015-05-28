@@ -1,4 +1,4 @@
-public abstract class Monster {
+public class Monster {
   private float x, y, v;
   private int health;
   //access granted

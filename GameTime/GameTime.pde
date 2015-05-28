@@ -14,13 +14,11 @@ void setup() {
 
 void draw() {
   popMatrix();
-  rect(600,350,20,20);
+  //rect(600,350,20,20);
   background(0);
   p1.display();
   p1.move(mouse);
   mouse.display();
-  //mouse.display();
-  //mouse.move();
   fill(0);
   for (int b = 0; b < bulletArr.size (); b++) {
     for (int m = 0; m < monsterArr.size (); m++) {
@@ -36,14 +34,13 @@ void draw() {
   for (Monster m : monsterArr) {
     m.display();
   }
-  //rect(mouseX, mouseY, 3, 3);//soon to be recticle
   rect(900,350,100,100);
   pushMatrix();
 }
 
 void mousePressed() {
   if(p1.getAtkSpd() == 0){
-      Bullet bull = new Bullet(p1.getX(), p1.getY(), 1, 10,mouse.getX(),mouse.getY());
+      Bullet bull = new Bullet(p1.getX(), p1.getY(),10,mouse);
       bulletArr.add(bull);
       p1.aSr();
   }//added attack speed constraint
