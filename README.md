@@ -32,5 +32,5 @@ APCS Term 2 Final Project
 - Movement works on a "camera" system; the camera follows the player
 	- The player is "static"; it stays in the center while obstacles move around it
 - Added bullet creation when clicking mouse
- 	~~- Bug occurs where velocity is different based on how far away from player the mouse is clicked~~
+ 	- ~~Bug occurs where velocity is different based on how far away from player the mouse is clicked~~
  	- Bug fixed using vectors! Also added an attack speed constraint
