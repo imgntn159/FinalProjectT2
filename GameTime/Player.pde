@@ -27,6 +27,9 @@ public class Player {
   public void damage(int d) {
     health -= d; //reduces health by d
   }
+  public int getAtkSpd(){
+    return atkSpd;
+  }
   public void aSd() {//reduces attack speed timer (attackSpeedDown)
     if (atkSpd == 0) {
       return;

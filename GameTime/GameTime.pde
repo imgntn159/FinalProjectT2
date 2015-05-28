@@ -31,6 +31,7 @@ void draw() {
   for (Bullet b : bulletArr) {
     b.display();
     b.shoot();
+    //add if statement in here for when bullets go out of range
   }
   for (Monster m : monsterArr) {
     m.display();
@@ -41,9 +42,11 @@ void draw() {
 }
 
 void mousePressed() {
-  //shoot a bullet at the mouse direction
-  Bullet bull = new Bullet(p1.getX(), p1.getY(), 1, 10,mouse.getX(),mouse.getY());
-  bulletArr.add(bull);
+  if(p1.getAtkSpd() == 0){
+      Bullet bull = new Bullet(p1.getX(), p1.getY(), 1, 10,mouse.getX(),mouse.getY());
+      bulletArr.add(bull);
+      p1.aSr();
+  }//added attack speed constraint
 }
 
 public void HitCheck(int bi, int mi, float r) {
