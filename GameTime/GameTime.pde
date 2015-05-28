@@ -29,6 +29,9 @@ void draw() {
   for (Bullet b : bulletArr) {
     b.display();
     b.shoot();
+    if(b.getX() + b.getY() >= 1200.0){
+	bulletArr.remove(b);
+    }
     //add if statement in here for when bullets go out of range
   }
   for (Monster m : monsterArr) {
