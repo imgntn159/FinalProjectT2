@@ -29,7 +29,8 @@ void draw() {
   }
   p1.aSd();
   for (Bullet b : bulletArr) {
-    b.draw();
+    b.display();
+    b.shoot();
   }
   for (Monster m : monsterArr) {
     m.display();
@@ -41,6 +42,8 @@ void draw() {
 
 void mousePressed() {
   //shoot a bullet at the mouse direction
+  Bullet bull = new Bullet(p1.getX(), p1.getY(), 1, 10,mouse.getX(),mouse.getY());
+  bulletArr.add(bull);
 }
 
 public void HitCheck(int bi, int mi, float r) {

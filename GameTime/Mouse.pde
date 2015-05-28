@@ -6,10 +6,10 @@ public class Mouse {
   }
   //access granted
   public float getX() {
-    return mouseX;
+    return mouseX+xmod;
   }
   public float getY() {
-    return mouseY;
+    return mouseY+ymod;
   }
   public float getXmod() {
     return xmod;
