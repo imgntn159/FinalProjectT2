@@ -26,13 +26,16 @@ void draw() {
     }
   }
   p1.aSd();
+  ArrayList<Bullet> tbulletArr = new ArrayList<Bullet>();
   for (Bullet b : bulletArr) {
     b.display();
     b.shoot();
-    if(b.getX() + b.getY() >= 1200.0){
-	bulletArr.remove(b);
+    if(abs(b.getX() + b.getY()) >= 1200.0){
+	tbulletArr.add(b);
     }
-    //add if statement in here for when bullets go out of range
+  }
+  for (Bullet b: tbulletArr){
+    bulletArr.remove(b);
   }
   for (Monster m : monsterArr) {
     m.display();
