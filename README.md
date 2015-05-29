@@ -35,7 +35,7 @@ APCS Term 2 Final Project
  	- ~~Bug occurs where velocity is different based on how far away from player the mouse is clicked~~
  	- Bug fixed using vectors! Also added an attack speed constraint
 
-5-26-15
+5-28-15
 -------
 - Cleaned up code
 - Added bullet removal, can change properties later
