@@ -16,8 +16,8 @@ void draw() {
   popMatrix();
   //rect(600,350,20,20);
   background(0);
-  p1.display();
   p1.move(mouse);
+  p1.display();
   mouse.display();
   fill(0);
   for (int b = 0; b < bulletArr.size (); b++) {

@@ -1,6 +1,7 @@
 public class Player {
   private float x, y, w, h;
   private int health, atkSpd, aSCap;
+  private PImage dude;
   boolean left = false;
   boolean right = false;
   boolean up = false;
@@ -13,6 +14,7 @@ public class Player {
     health = 20;
     atkSpd = 0;
     aSCap = 10;
+    dude = loadImage("Dude.png");
   }
   //access granted
   public float getX() {
@@ -77,13 +79,19 @@ public class Player {
       translate(-5,0);
     }
   }
+  void turn(Mouse m){
+    PVector normal = new PVector(1,0);
+    PVector other = new PVector(m.getX(),m.getY());
+    rotate(radians(PVector.angleBetween(normal,other)));
+  }
   
   void display() {
-    rectMode(CENTER);
+    imageMode(CENTER);
     stroke(255, 153, 0);
-    rect(x, y, w, h);//rect is easier than ellipse for sprite
+    //rect(x, y, w, h);//rect is easier than ellipse for sprite
     //for rect(the first 2 param specify the coordinates
     //last 2 specify the width n height
+    image(dude,x,y);
   }
 }
 
