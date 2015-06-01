@@ -61,28 +61,27 @@ public class Player {
     if (up) {
       y=y-5;
       m.setYmod(m.getYmod() - 5);
-      translate(0,5);
+      //translate(0,5);
     }
     if (down) {
       y=y+5;
       m.setYmod(m.getYmod() + 5);
-      translate(0,-5);
+      //translate(0,-5);
     }
     if (left) {      
       x=x-5;
       m.setXmod(m.getXmod() - 5);
-      translate(5,0);
+      //translate(5,0);
     }
     if (right) {
       x+=5;
       m.setXmod(m.getXmod() + 5);
-      translate(-5,0);
+      //translate(-5,0);
     }
   }
   void turn(Mouse m){
-    PVector normal = new PVector(1,0);
-    PVector other = new PVector(m.getX(),m.getY());
-    rotate(radians(PVector.angleBetween(normal,other)));
+    PVector other = new PVector(m.getX()-x,m.getY()-y);
+    rotate(other.heading());
   }
   
   void display() {

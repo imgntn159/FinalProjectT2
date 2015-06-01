@@ -9,16 +9,31 @@ void setup() {
   mode = 0;
   p1 = new Player(600,350, 20,20);
   mouse = new Mouse(3,3);
-  pushMatrix();
+}
+
+void axis(){
+  line(width/2,0,width/2,height);
+  line(0,height/2,width,height/2); 
 }
 
 void draw() {
-  popMatrix();
   //rect(600,350,20,20);
-  background(0);
+  background(255);
+  pushMatrix();
+  translate(width/2,height/2);
   p1.move(mouse);
+  translate(-p1.getX(),-p1.getY());
+  pushMatrix();
+  translate(width/2,height/2);
+  //translate(p1.getX(),p1.getY());
+  //translate(p1.getX(),p1.getY());
+  p1.turn(mouse);
+  translate(-width/2,-height/2);
+  //translate(-p1.getX(),-p1.getY());
   p1.display();
+  popMatrix();
   mouse.display();
+  rect(900,350,100,100);
   fill(0);
   for (int b = 0; b < bulletArr.size (); b++) {
     for (int m = 0; m < monsterArr.size (); m++) {
@@ -40,8 +55,7 @@ void draw() {
   for (Monster m : monsterArr) {
     m.display();
   }
-  rect(900,350,100,100);
-  pushMatrix();
+  popMatrix();
 }
 
 void mousePressed() {
