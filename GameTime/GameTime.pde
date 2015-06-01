@@ -17,21 +17,19 @@ void axis(){
 }
 
 void draw() {
-  //rect(600,350,20,20);
   background(255);
   pushMatrix();
   translate(width/2,height/2);
   p1.move(mouse);
   translate(-p1.getX(),-p1.getY());
-  pushMatrix();
-  translate(width/2,height/2);
-  //translate(-p1.getX(),-p1.getY());
-  p1.turn(mouse);
-  translate(-width/2,-height/2);
-  //translate(p1.getX(),p1.getY());
-  axis();
-  p1.display();
-  popMatrix();
+  
+    pushMatrix();//rotation
+    translate(p1.getX(),p1.getY());
+    p1.turn(mouse);
+    translate(-p1.getX(),-p1.getY());
+    p1.display();
+    popMatrix();
+    
   mouse.display();
   rect(900,350,100,100);
   fill(0);

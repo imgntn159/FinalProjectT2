@@ -40,3 +40,7 @@ APCS Term 2 Final Project
 - Cleaned up code
 - Added bullet removal, can change properties later
 - Added a temporary sprite
+
+5-31-15
+-------
+- Player now rotates!
