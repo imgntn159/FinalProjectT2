@@ -25,11 +25,11 @@ void draw() {
   translate(-p1.getX(),-p1.getY());
   pushMatrix();
   translate(width/2,height/2);
-  //translate(p1.getX(),p1.getY());
-  //translate(p1.getX(),p1.getY());
+  //translate(-p1.getX(),-p1.getY());
   p1.turn(mouse);
   translate(-width/2,-height/2);
-  //translate(-p1.getX(),-p1.getY());
+  //translate(p1.getX(),p1.getY());
+  axis();
   p1.display();
   popMatrix();
   mouse.display();
