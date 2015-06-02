@@ -39,17 +39,26 @@ void draw() {
     }
   }
   p1.aSd();
+  
   ArrayList<Bullet> tbulletArr = new ArrayList<Bullet>();
   for (Bullet b : bulletArr) {
-    b.display();
+    
+      pushMatrix();//rotation
+      translate(b.getX(),b.getY());
+      b.turn();
+      translate(-b.getX(),-b.getY());
+      b.display();
+      popMatrix();
+      
     b.shoot();
-    if(abs(b.getX() + b.getY()) >= 1200.0){
+    if(b.rInc()){
 	tbulletArr.add(b);
     }
   }
   for (Bullet b: tbulletArr){
     bulletArr.remove(b);
   }
+  
   for (Monster m : monsterArr) {
     m.display();
   }
@@ -88,6 +97,9 @@ public void CheckCollide(Monster a, Monster b, float r) {//r being the radius ch
   }
 }
 void keyPressed() {
+  if (key == 'c'||key == 'C'){
+    p1.dash(mouse);
+  }
   if (key== 's'||key=='S') {
     p1.setDown(true);
     p1.setUp(false);

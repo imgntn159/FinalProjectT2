@@ -1,7 +1,8 @@
 public class Bullet {
-  private float r;
+  private float r,range,mrange;
   private int bulletDamage;
   private PVector location,velocity;
+  private PImage sprite;
   public Bullet(float x, float y, float r,Mouse m) {
     this.r = r;
     float xSlope = m.getX() - x;
@@ -11,6 +12,9 @@ public class Bullet {
     velocity = new PVector(xSlope,ySlope);
     velocity.normalize();
     velocity.mult(10);
+    sprite = loadImage("bullSprite.png");
+    range = 0;
+    mrange = 30;
   }
   //access granted
   public float getX() {
@@ -28,13 +32,20 @@ public class Bullet {
   public int getBulletDmg() {
     return bulletDamage;
   }
+  public boolean rInc(){
+    range++;
+    return range >= mrange;
+  }
   void shoot() {
     location = PVector.add(location,velocity);
   }
+  void turn(){
+    PVector other = new PVector(velocity.x,velocity.y);
+    rotate(other.heading());
+  }
   public void display() {
-    stroke(194);
-    fill(1);
-    ellipse(location.x, location.y, r, r);
+    imageMode(CENTER);
+    image(sprite,location.x,location.y);
   }
 }
 

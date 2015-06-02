@@ -79,6 +79,15 @@ public class Player {
       //translate(-5,0);
     }
   }
+  void dash(Mouse m){
+    PVector location = new PVector(x,y);
+    PVector velocity = new PVector(m.getX() - x, m.getY() - y);
+    velocity.normalize();
+    velocity.mult(20);
+    location = PVector.add(location,velocity);
+    x = location.x;
+    y = location.y;
+  }
   void turn(Mouse m){
     PVector other = new PVector(m.getX()-x,m.getY()-y);
     rotate(other.heading());
@@ -86,7 +95,7 @@ public class Player {
   
   void display() {
     imageMode(CENTER);
-    stroke(255, 153, 0);
+    //stroke(255, 153, 0);
     //rect(x, y, w, h);//rect is easier than ellipse for sprite
     //for rect(the first 2 param specify the coordinates
     //last 2 specify the width n height
