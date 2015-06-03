@@ -8,6 +8,9 @@ Kaizen's Stuff Branch Test Commit (KSBTC)
 - Add monsters and interactions
 - Add a menu, maybe a pause menu
 
+6-3-15
+-------
+
 6-1-15
 -------
 - Bullet sprite added with rotation
