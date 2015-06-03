@@ -10,6 +10,7 @@ Kaizen's Stuff Branch Test Commit (KSBTC)
 
 6-3-15
 -------
+- Added a menu with one button
 
 6-1-15
 -------
