@@ -79,7 +79,7 @@ public class Player {
       //translate(-5,0);
     }
   }
-  void dash(Mouse m){
+  /*void dash(Mouse m){
     PVector location = new PVector(x,y);
     PVector velocity = new PVector(m.getX() - x, m.getY() - y);
     velocity.normalize();
@@ -87,7 +87,7 @@ public class Player {
     location = PVector.add(location,velocity);
     x = location.x;
     y = location.y;
-  }
+  }*/
   void turn(Mouse m){
     PVector other = new PVector(m.getX()-x,m.getY()-y);
     rotate(other.heading());
