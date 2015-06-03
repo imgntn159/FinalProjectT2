@@ -7,7 +7,7 @@ public class Bullet {
     this.r = r;
     float xSlope = m.getX() - x;
     float ySlope = m.getY() - y;
-    bulletDamage = 1;
+    bulletDamage = 5;
     location = new PVector(x,y);
     velocity = new PVector(xSlope,ySlope);
     velocity.normalize();

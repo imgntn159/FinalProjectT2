@@ -2,6 +2,7 @@ int mode;
 ArrayList<Bullet> bulletArr = new ArrayList<Bullet>();
 ArrayList<Monster> monsterArr = new ArrayList<Monster>();
 Player p1;
+Monster m;
 Mouse mouse;
 
 void setup() {
@@ -9,6 +10,8 @@ void setup() {
   mode = 0;
   p1 = new Player(600,350, 20,20);
   mouse = new Mouse(3,3);
+  m = new Monster(900,350,5);
+  monsterArr.add(m);
 }
 
 void axis(){
@@ -17,7 +20,7 @@ void axis(){
 }
 
 void draw() {
-  background(307);
+  background(155);
   pushMatrix();
   translate(width/2,height/2);
   p1.move(mouse);
@@ -31,7 +34,7 @@ void draw() {
     popMatrix();
     
   mouse.display();
-  rect(900,350,100,100);
+ // rect(900,350,100,100);
   fill(0);
   for (int b = 0; b < bulletArr.size (); b++) {
     for (int m = 0; m < monsterArr.size (); m++) {
@@ -60,6 +63,7 @@ void draw() {
   }
   
   for (Monster m : monsterArr) {
+    m.follow(p1.getX(),p1.getY());
     m.display();
   }
   popMatrix();
