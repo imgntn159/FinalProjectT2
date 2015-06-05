@@ -1,4 +1,6 @@
+import java.util.*;
 int mode;
+Random r = new Random();
 ArrayList<Bullet> bulletArr = new ArrayList<Bullet>();
 ArrayList<Monster> monsterArr = new ArrayList<Monster>();
 Player p1;
@@ -9,30 +11,32 @@ Menu menu;
 void setup() {
   size(1200, 700);
   mode = 1;
-  p1 = new Player(600,350, 20,20);
-  mouse = new Mouse(3,3);
-  m = new Monster(900,350,5);
+  p1 = new Player(600, 350, 50, 50);
+  mouse = new Mouse(3, 3);
+  m = new Monster(900, 350, 5);
   menu = new Menu();
   monsterArr.add(m);
 }
 
 void draw() {
-  if(mode == 1){//menu
+  if (mode == 1) {//menu
     menu.display();
-  }else{//literally the game
+  } else {//literally the game
     background(155);
     pushMatrix();
-    translate(width/2,height/2);
+    translate(width/2, height/2);
     p1.move(mouse);
-    translate(-p1.getX(),-p1.getY());
-    
-      pushMatrix();//rotation
-      translate(p1.getX(),p1.getY());
-      p1.turn(mouse);
-      translate(-p1.getX(),-p1.getY());
+    translate(-p1.getX(), -p1.getY());
+
+    pushMatrix();//rotation
+    translate(p1.getX(), p1.getY());
+    p1.turn(mouse);
+    translate(-p1.getX(), -p1.getY());
+    if (p1.getHealth()>0) {
       p1.display();
-      popMatrix();
-      
+    }
+    popMatrix();
+
     mouse.display();
     fill(0);
     for (int b = 0; b < bulletArr.size (); b++) {
@@ -41,28 +45,29 @@ void draw() {
       }
     }
     p1.aSd();
-    
+
     ArrayList<Bullet> tbulletArr = new ArrayList<Bullet>();
     for (Bullet b : bulletArr) {
-      
-        pushMatrix();//rotation
-        translate(b.getX(),b.getY());
-        b.turn();
-        translate(-b.getX(),-b.getY());
-        b.display();
-        popMatrix();
-        
+
+      pushMatrix();//rotation
+      translate(b.getX(), b.getY());
+      b.turn();
+      translate(-b.getX(), -b.getY());
+      b.display();
+      popMatrix();
+
       b.shoot();
-      if(b.rInc()){
-  	tbulletArr.add(b);
+      if (b.rInc()) {
+        tbulletArr.add(b);
       }
     }
-    for (Bullet b: tbulletArr){
+    for (Bullet b : tbulletArr) {
       bulletArr.remove(b);
     }
-    
+
     for (Monster m : monsterArr) {
-      m.follow(p1.getX(),p1.getY());
+      m.follow(p1.getX(), p1.getY());
+      playerDamaged(m);
       m.display();
     }
     popMatrix();
@@ -70,19 +75,27 @@ void draw() {
 }
 
 void mousePressed() {
-  if(mode == 0){
-    if(p1.getAtkSpd() == 0){
-        Bullet bull = new Bullet(p1.getX(), p1.getY(),10,mouse);
-        bulletArr.add(bull);
-        p1.aSr();
+  if (mode == 0) {
+    if (p1.getAtkSpd() == 0) {
+      Bullet bull = new Bullet(p1.getX(), p1.getY(), 10, mouse);
+      bulletArr.add(bull);
+      p1.aSr();
     }//added attack speed constraint
-  }else if(mode == 1){
-    if(menu.mouseIn()){
+  } else if (mode == 1) {
+    if (menu.mouseIn()) {
       mode = 0;
     }
   }
 }
-
+public void playerDamaged(Monster m) {
+  int r = 50;
+  if (m.getX() <= p1.getX() + r &&
+    m.getX() >= p1.getX() - r &&
+    m.getY() <= p1.getY() + r &&
+    m.getY() >= p1.getY() - r) {
+    p1.damage(1);
+  }
+}
 public void HitCheck(int bi, int mi, float r) {
   Bullet b = bulletArr.get(bi);
   Monster m = monsterArr.get(mi);
@@ -106,6 +119,7 @@ public void CheckCollide(Monster a, Monster b, float r) {//r being the radius ch
     a.collision();
   }
 }
+
 void keyPressed() {
   if (key== 's'||key=='S') {
     p1.setDown(true);

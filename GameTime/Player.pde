@@ -11,7 +11,7 @@ public class Player {
     y=ycor;
     this.w = w;
     this.h = h;
-    health = 20;
+    health = 1;
     atkSpd = 0;
     aSCap = 10;
     dude = loadImage("Dude.png");
@@ -95,8 +95,8 @@ public class Player {
   
   void display() {
     imageMode(CENTER);
-    //stroke(255, 153, 0);
-    //rect(x, y, w, h);//rect is easier than ellipse for sprite
+    stroke(255, 153, 0);
+    ellipse(x-10, y, w, h);//rect is easier than ellipse for sprite
     //for rect(the first 2 param specify the coordinates
     //last 2 specify the width n height
     image(dude,x,y);
