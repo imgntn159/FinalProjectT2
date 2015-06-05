@@ -4,77 +4,83 @@ ArrayList<Monster> monsterArr = new ArrayList<Monster>();
 Player p1;
 Monster m;
 Mouse mouse;
+Menu menu;
 
 void setup() {
   size(1200, 700);
-  mode = 0;
+  mode = 1;
   p1 = new Player(600,350, 20,20);
   mouse = new Mouse(3,3);
   m = new Monster(900,350,5);
+  menu = new Menu();
   monsterArr.add(m);
 }
 
-void axis(){
-  line(width/2,0,width/2,height);
-  line(0,height/2,width,height/2); 
-}
-
 void draw() {
-  background(155);
-  pushMatrix();
-  translate(width/2,height/2);
-  p1.move(mouse);
-  translate(-p1.getX(),-p1.getY());
-  
-    pushMatrix();//rotation
-    translate(p1.getX(),p1.getY());
-    p1.turn(mouse);
+  if(mode == 1){//menu
+    menu.display();
+  }else{//literally the game
+    background(155);
+    pushMatrix();
+    translate(width/2,height/2);
+    p1.move(mouse);
     translate(-p1.getX(),-p1.getY());
-    p1.display();
-    popMatrix();
-    
-  mouse.display();
- // rect(900,350,100,100);
-  fill(0);
-  for (int b = 0; b < bulletArr.size (); b++) {
-    for (int m = 0; m < monsterArr.size (); m++) {
-      HitCheck(b, m, bulletArr.get(b).getR());
-    }
-  }
-  p1.aSd();
-  
-  ArrayList<Bullet> tbulletArr = new ArrayList<Bullet>();
-  for (Bullet b : bulletArr) {
     
       pushMatrix();//rotation
-      translate(b.getX(),b.getY());
-      b.turn();
-      translate(-b.getX(),-b.getY());
-      b.display();
+      translate(p1.getX(),p1.getY());
+      p1.turn(mouse);
+      translate(-p1.getX(),-p1.getY());
+      p1.display();
       popMatrix();
       
-    b.shoot();
-    if(b.rInc()){
-	tbulletArr.add(b);
+    mouse.display();
+    fill(0);
+    for (int b = 0; b < bulletArr.size (); b++) {
+      for (int m = 0; m < monsterArr.size (); m++) {
+        HitCheck(b, m, bulletArr.get(b).getR());
+      }
     }
+    p1.aSd();
+    
+    ArrayList<Bullet> tbulletArr = new ArrayList<Bullet>();
+    for (Bullet b : bulletArr) {
+      
+        pushMatrix();//rotation
+        translate(b.getX(),b.getY());
+        b.turn();
+        translate(-b.getX(),-b.getY());
+        b.display();
+        popMatrix();
+        
+      b.shoot();
+      if(b.rInc()){
+  	tbulletArr.add(b);
+      }
+    }
+    for (Bullet b: tbulletArr){
+      bulletArr.remove(b);
+    }
+    
+    for (Monster m : monsterArr) {
+      m.follow(p1.getX(),p1.getY());
+      m.display();
+    }
+    popMatrix();
   }
-  for (Bullet b: tbulletArr){
-    bulletArr.remove(b);
-  }
-  
-  for (Monster m : monsterArr) {
-    m.follow(p1.getX(),p1.getY());
-    m.display();
-  }
-  popMatrix();
 }
 
 void mousePressed() {
-  if(p1.getAtkSpd() == 0){
-      Bullet bull = new Bullet(p1.getX(), p1.getY(),10,mouse);
-      bulletArr.add(bull);
-      p1.aSr();
-  }//added attack speed constraint
+  if(mode == 0){
+    if(p1.getAtkSpd() == 0){
+        Bullet bull = new Bullet(p1.getX(), p1.getY(),10,mouse);
+        bulletArr.add(bull);
+        p1.aSr();
+    }//added attack speed constraint
+  }else if(mode == 1){
+    if(menu.mouseIn()){
+      mode = 0;
+    }
+  }
 }
 
 public void HitCheck(int bi, int mi, float r) {
@@ -101,9 +107,6 @@ public void CheckCollide(Monster a, Monster b, float r) {//r being the radius ch
   }
 }
 void keyPressed() {
-  if (key == 'c'||key == 'C'){
-    p1.dash(mouse);
-  }
   if (key== 's'||key=='S') {
     p1.setDown(true);
     p1.setUp(false);

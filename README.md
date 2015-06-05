@@ -3,8 +3,17 @@ APCS Term 2 Final Project
 Current demo is up on the Master branch, use GameTime.pde under the GameTime folder and press play!
 
 #To Do [Immediate]
-- Add monsters and interactions
-- Add a menu, maybe a pause menu
+- Add ~monsters and~ interactions
+- Add ~a menu, maybe~ a pause menu
+
+6-4-15
+-------
+- Branches merged
+
+6-3-15
+-------
+- Added a menu with one button
+- Added monsters that move
 
 6-1-15
 -------
