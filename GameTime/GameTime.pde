@@ -36,12 +36,14 @@ void draw() {
       p1.display();
     }
     popMatrix();
-
+    spawnMonster();
     mouse.display();
     fill(0);
-    for (int b = 0; b < bulletArr.size (); b++) {
-      for (int m = 0; m < monsterArr.size (); m++) {
-        HitCheck(b, m, bulletArr.get(b).getR());
+    if (bulletArr.size()>0) {
+      for (int b = 0; b < bulletArr.size (); b++) {
+        for (int m = 0; m < monsterArr.size (); m++) {
+          HitCheck(b, m, bulletArr.get(b).getR());
+        }
       }
     }
     p1.aSd();
@@ -119,7 +121,12 @@ public void CheckCollide(Monster a, Monster b, float r) {//r being the radius ch
     a.collision();
   }
 }
-
+void spawnMonster() {
+  if (r.nextInt(100) < 2) {
+    Monster john = new Monster(500+r.nextInt(500), r.nextInt(1000), 5);
+    monsterArr.add(john);
+  }
+}
 void keyPressed() {
   if (key== 's'||key=='S') {
     p1.setDown(true);
