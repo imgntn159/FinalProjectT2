@@ -9,8 +9,8 @@ public class Menu {
   }
   void display() {
     // Test if the cursor is over the box 
-    fill(153);
     background(307);
+    fill(153);
     if (mouseX > ax-aw && mouseX < ax+aw && 
         mouseY > ay-ah && mouseY < ay+ah) { 
       stroke(255);
@@ -18,6 +18,9 @@ public class Menu {
     }else{stroke(153); aOver = false;}
     rectMode(CENTER);
     rect(ax,ay,aw,ah);
+    fill(0, 102, 153);
+    textSize(32);
+    text("Start!",ax-(aw/2),ay);
   }
   public boolean mouseIn(){
     return mouseX > ax-aw && mouseX < ax+aw && 
