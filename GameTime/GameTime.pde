@@ -1,4 +1,5 @@
 import java.util.*;
+PImage wall;
 int mode;
 Random r = new Random();
 ArrayList<Bullet> bulletArr = new ArrayList<Bullet>();
@@ -9,20 +10,22 @@ Mouse mouse;
 Menu menu;
 
 void setup() {
-  size(1200, 700);
+  size(1280,720);
   mode = 1;
   p1 = new Player(600, 350, 50, 50);
   mouse = new Mouse(3, 3);
   m = new Monster(900, 350, 5);
   menu = new Menu();
   monsterArr.add(m);
+  wall = loadImage("kyouko3.jpg");
 }
 
 void draw() {
   if (mode == 1) {//menu
     menu.display();
   } else {//literally the game
-    background(155);
+  background(155);
+    image(wall,650-(p1.getX()/10),350-(p1.getY()/10));
     pushMatrix();
     translate(width/2, height/2);
     p1.move(mouse);
@@ -42,7 +45,7 @@ void draw() {
     if (bulletArr.size()>0) {
       for (int b = 0; b < bulletArr.size (); b++) {
         for (int m = 0; m < monsterArr.size (); m++) {
-          if (HitCheck(b, m, 10)) {
+          if (HitCheck(b, m, bulletArr.get(b).getR())) {
             b--;
           }
         }
@@ -129,8 +132,8 @@ public void CheckCollide(Monster a, Monster b, float r) {//r being the radius ch
   }
 }
 void spawnMonster() {
-  if (r.nextInt(100) < 2) {
-    Monster john = new Monster(500+r.nextInt(500), r.nextInt(1000), 5);
+  if (r.nextInt(100) < 1) {
+    Monster john = new Monster(r.nextInt(1000), r.nextInt(1000), 5);
     monsterArr.add(john);
   }
 }
