@@ -5,18 +5,15 @@ Random r = new Random();
 ArrayList<Bullet> bulletArr = new ArrayList<Bullet>();
 ArrayList<Monster> monsterArr = new ArrayList<Monster>();
 Player p1;
-Monster m;
 Mouse mouse;
 Menu menu;
 
 void setup() {
-  size(1280,720);
+  size(1280, 720);
   mode = 1;
   p1 = new Player(600, 350, 50, 50);
   mouse = new Mouse(3, 3);
-  m = new Monster(900, 350, 5);
   menu = new Menu();
-  monsterArr.add(m);
   wall = loadImage("W.jpeg");
 }
 
@@ -24,13 +21,12 @@ void draw() {
   if (mode == 1) {//menu
     menu.display();
   } else {//literally the game
-  background(155);
-    image(wall,650-(p1.getX()/10),350-(p1.getY()/10));
+    background(155);
+    image(wall, 650-(p1.getX()/10), 350-(p1.getY()/10));
     pushMatrix();
     translate(width/2, height/2);
     p1.move(mouse);
     translate(-p1.getX(), -p1.getY());
-
     pushMatrix();//rotation
     translate(p1.getX(), p1.getY());
     p1.turn(mouse);
@@ -42,18 +38,8 @@ void draw() {
     spawnMonster();
     mouse.display();
     fill(0);
-    if (bulletArr.size()>0) {
-      for (int b = 0; b < bulletArr.size (); b++) {
-        for (int m = 0; m < monsterArr.size (); m++) {
-          if (HitCheck(b, m, bulletArr.get(b).getR())) {
-            b--;
-          }
-        }
-      }
-    }
+    bulletShootMonster();
     p1.aSd();
-
-    ArrayList<Bullet> tbulletArr = new ArrayList<Bullet>();
     for (Bullet b : bulletArr) {
 
       pushMatrix();//rotation
@@ -66,8 +52,9 @@ void draw() {
       b.shoot();
     }
     /* THIS PART MESSES WITH BULLET ARRAY HITCHECK
-    INDEX OUT OF BOUNDS
-       if (b.rInc()) {
+     INDEX OUT OF BOUNDS
+     ArrayList<Bullet> tbulletArr = new ArrayList<Bullet>();
+     if (b.rInc()) {
      tbulletArr.add(b);
      }
      }
@@ -75,15 +62,32 @@ void draw() {
      bulletArr.remove(b);
      }
      */
-    for (Monster m : monsterArr) {
-      m.follow(p1.getX(), p1.getY());
-      playerDamaged(m);
-      m.display();
-    }
+    Collide();
+    monsterMovement();
     popMatrix();
   }
 }
 
+void bulletShootMonster() {//FUNCTION THAT LETS BULLETS SHOOT MONSTERS
+  if (bulletArr.size()>0) {
+    for (int b = 0; b < bulletArr.size (); b++) {
+      for (int m = 0; m < monsterArr.size (); m++) {
+        if (HitCheck(b, m, bulletArr.get(b).getR())) {
+          b--;
+        }
+      }
+    }
+  }
+}
+void monsterMovement() { //FUNCTION THAT LETS MONSTERS MOVE AROUND
+  for (Monster m : monsterArr) {
+    m.follow(p1.getX(), p1.getY());
+    playerDamaged(m);
+    m.display();
+    if (!m.getCollision())
+      m.move();
+  }
+}
 void mousePressed() {
   if (mode == 0) {
     if (p1.getAtkSpd() == 0) {
@@ -97,7 +101,7 @@ void mousePressed() {
     }
   }
 }
-public void playerDamaged(Monster m) {
+void playerDamaged(Monster m) {
   int r = 50;
   if (m.getX() <= p1.getX() + r &&
     m.getX() >= p1.getX() - r &&
@@ -123,12 +127,23 @@ boolean HitCheck(int bi, int mi, float r) {
   return false;
 }
 
-public void CheckCollide(Monster a, Monster b, float r) {//r being the radius check of monster a
-  if (a.getX() <= b.getX() + r &&
-    a.getX() >= b.getX() - r &&
-    a.getY() <= b.getY() + r &&
-    a.getY() >= b.getY() - r) {
-    a.collision();
+void Collide() {
+  for (int i = 0; i < monsterArr.size (); i++) {
+    Monster m = monsterArr.get(i);
+    for (int f = i + 1; f < monsterArr.size (); f++) {
+      m.collision(monsterArr.get(f));
+    }
+  }
+}
+void CheckCollide(Monster a, Monster b, int r) {//r being the radius check of monster a
+  if (a.getX() <= b.getX() + 60 &&
+    a.getX() >= b.getX() - 60 &&
+    a.getY() <= b.getY() + 60 &&
+    a.getY() >= b.getY() - 60) {
+    a.setCollision(true);
+  }
+  else{
+   a.setCollision(false); 
   }
 }
 void spawnMonster() {
