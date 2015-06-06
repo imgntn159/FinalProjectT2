@@ -17,7 +17,7 @@ void setup() {
   m = new Monster(900, 350, 5);
   menu = new Menu();
   monsterArr.add(m);
-  wall = loadImage("kyouko3.jpg");
+  wall = loadImage("W.jpeg");
 }
 
 void draw() {

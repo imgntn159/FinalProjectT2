@@ -1,7 +1,9 @@
 public class Menu {
   int ax,ay,aw,ah;
+   PImage intro;
   boolean aOver;
   public Menu(){
+     intro = loadImage("K.jpg");
     ax = width/2;
     ay = height/2;
     aw = 100;
@@ -9,7 +11,7 @@ public class Menu {
   }
   void display() {
     // Test if the cursor is over the box 
-    background(307);
+    background(intro);
     fill(153);
     if (mouseX > ax-aw && mouseX < ax+aw && 
         mouseY > ay-ah && mouseY < ay+ah) { 
