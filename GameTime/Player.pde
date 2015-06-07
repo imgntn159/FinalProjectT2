@@ -11,7 +11,7 @@ public class Player {
     y=ycor;
     this.w = w;
     this.h = h;
-    health = 1;
+    health = 100;
     atkSpd = 0;
     aSCap = 10;
     dude = loadImage("Dude.png");
@@ -58,22 +58,22 @@ public class Player {
   }
   
   void move(Mouse m) {
-    if (up) {
+    if (up && y > -900) {
       y=y-5;
       m.setYmod(m.getYmod() - 5);
       //translate(0,5);
     }
-    if (down) {
+    if (down && y < 900) {
       y=y+5;
       m.setYmod(m.getYmod() + 5);
       //translate(0,-5);
     }
-    if (left) {      
+    if (left && x > -2000) {      
       x=x-5;
       m.setXmod(m.getXmod() - 5);
       //translate(5,0);
     }
-    if (right) {
+    if (right && x < 2000) {
       x+=5;
       m.setXmod(m.getXmod() + 5);
       //translate(-5,0);

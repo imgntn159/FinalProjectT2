@@ -1,17 +1,20 @@
+import java.util.*;
 public class Monster {
-  private float x, y, v, xSlope, ySlope;
+  Random rand = new Random();
+  private float x, y, v, r, xSlope, ySlope;
   float xlim = 25;
   float ylim = 25;
   private int health;
   boolean collisionRight, collisionLeft, collisionUp, collisionDown, collision;
   PVector location, velocity;
   //access granted
-  public Monster(int x, int y, int v) {
+  public Monster(int x, int y) {
     this.x = x;
     this.y = y;
-    this.v = v;
+    v=rand.nextInt(4)+1;
+    r= rand.nextInt(50)+50;
     location = new PVector(x, y);
-    health = 10;
+    health = (int)r/5;
     collisionRight = false;
     collisionLeft = false;
     collisionUp = false;
@@ -33,6 +36,9 @@ public class Monster {
   public float getV() {
     return v;
   }
+  float getR() {
+    return r;
+  }
   public boolean shouldDie() {
     return health <= 0;
   }
@@ -41,14 +47,15 @@ public class Monster {
     health -= d; //reduces health by d
   }
   void move() {
+
     if (collisionRight)
-      x-=1;
+      x-=v;
     if (collisionLeft)
-      x+=1;
+      x+=v;
     if (collisionUp)
-      y+=1;
+      y+=v;
     if (collisionDown)
-      y-=1;
+      y-=v;
   }
   void follow(float playerX, float playerY) {
     xSlope = x-playerX;
@@ -69,11 +76,10 @@ public class Monster {
     }
   }
   void collision(Monster a) {
-    float xlimit1 = a.getX() + (.5 * 50);//measures dimensions of obstacle
-    float xlimit2 = a.getX() - (.5 * 50);
-    float ylimit1 = a.getY()+ (.5 * 50);
-    float ylimit2 = a.getY() - (.5 * 50);
-
+    float xlimit1 = a.getX() + (.5 * a.getR());//measures dimensions of obstacle
+    float xlimit2 = a.getX() - (.5 * a.getR());
+    float ylimit1 = a.getY()+ (.5 * a.getR());
+    float ylimit2 = a.getY() - (.5 * a.getR());
     if ((x-xlim<xlimit1+1 && x> xlimit2 ) && (y > ylimit2 && y < ylimit1)) {//&& x < xlimit2 && y > ylimit1){
       collisionLeft=true; 
       collisionRight=false;
@@ -99,22 +105,22 @@ public class Monster {
       collisionUp=false;
     }
     if (collisionLeft && !collisionRight) {  
-      x=xlimit1+30;
+      x=xlimit1+35;
     }
     if (collisionRight && !collisionLeft) {
-      x=xlimit2 - 30;
+      x=xlimit2 - 35;
     }
     if (collisionUp && !collisionDown) {      
-      y=ylimit1+30;
+      y=ylimit1+35;
     } else if (collisionDown && !collisionUp) {
-      y=ylimit2-30;
+      y=ylimit2-35;
     }
   }
 
   void display() {
     //stroke(0);
     fill(1);
-    ellipse(x, y, 50, 50);
+    ellipse(x, y, r, r);
   }
 }
 

@@ -1,9 +1,13 @@
 import java.util.*;
+import ddf.minim.*;
 PImage wall;
+Minim minim;
+AudioPlayer player;
 int mode;
 Random r = new Random();
 ArrayList<Bullet> bulletArr = new ArrayList<Bullet>();
 ArrayList<Monster> monsterArr = new ArrayList<Monster>();
+float time;
 Player p1;
 Mouse mouse;
 Menu menu;
@@ -15,12 +19,17 @@ void setup() {
   mouse = new Mouse(3, 3);
   menu = new Menu();
   wall = loadImage("W.jpeg");
+  time = 0;
+  minim=new Minim(this);
+  player = minim.loadFile("song.mp3");
 }
 
 void draw() {
   if (mode == 1) {//menu
     menu.display();
   } else {//literally the game
+    player.play();
+    time+=.00001;
     background(155);
     image(wall, 650-(p1.getX()/10), 350-(p1.getY()/10));
     pushMatrix();
@@ -64,17 +73,24 @@ void draw() {
      */
     Collide();
     monsterMovement();
+    obstacle();
     popMatrix();
   }
 }
-
+void obstacle() {
+  rect(-2050, 300, 50, 5000); 
+  rect(2050, 300, 50, 5000);
+  rect(50, 950, 5000, 50);
+  rect(50, -950, 5000, 50);
+}
 void bulletShootMonster() {//FUNCTION THAT LETS BULLETS SHOOT MONSTERS
-  if (bulletArr.size()>0) {
-    for (int b = 0; b < bulletArr.size (); b++) {
-      for (int m = 0; m < monsterArr.size (); m++) {
-        if (HitCheck(b, m, bulletArr.get(b).getR())) {
-          b--;
-        }
+
+  for (int b = 0; b < bulletArr.size (); b++) {
+    for (int m = 0; m < monsterArr.size (); m++) {
+      if (b>0 && bulletArr.size() >0) {
+        if (HitCheck(b, m, bulletArr.get(b).getR()+5))
+          if (b>0 && bulletArr.size() >0)
+            b--;
       }
     }
   }
@@ -102,7 +118,7 @@ void mousePressed() {
   }
 }
 void playerDamaged(Monster m) {
-  int r = 50;
+  float r = m.getR() * .5;
   if (m.getX() <= p1.getX() + r &&
     m.getX() >= p1.getX() - r &&
     m.getY() <= p1.getY() + r &&
@@ -111,12 +127,14 @@ void playerDamaged(Monster m) {
   }
 }
 boolean HitCheck(int bi, int mi, float r) {
+  r-=3;
   Bullet b = bulletArr.get(bi);
   Monster m = monsterArr.get(mi);
-  if (m.getX() <= b.getX() + r &&
-    m.getX() >= b.getX() - r &&
-    m.getY() <= b.getY() + r &&
-    m.getY() >= b.getY() - r) {
+  float rad = m.getR() *.5;
+  if (m.getX()-rad <= b.getX() + r &&
+    m.getX()+rad >= b.getX() - r &&
+    m.getY()-rad <= b.getY() + r &&
+    m.getY()+rad >= b.getY() - r) {
     m.damage(b.getBulletDmg());
     if (m.shouldDie()) {
       monsterArr.remove(mi);
@@ -141,14 +159,15 @@ void CheckCollide(Monster a, Monster b, int r) {//r being the radius check of mo
     a.getY() <= b.getY() + 60 &&
     a.getY() >= b.getY() - 60) {
     a.setCollision(true);
-  }
-  else{
-   a.setCollision(false); 
+  } else {
+    a.setCollision(false);
   }
 }
 void spawnMonster() {
-  if (r.nextInt(100) < 1) {
-    Monster john = new Monster(r.nextInt(1000), r.nextInt(1000), 5);
+  if (time > 10)
+    time = 10;
+  if (r.nextInt(100) < 1+(time)) {
+    Monster john = new Monster(r.nextInt(4000)-2000, r.nextInt(2000)-1000);
     monsterArr.add(john);
   }
 }

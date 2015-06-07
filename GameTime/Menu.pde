@@ -1,32 +1,35 @@
 public class Menu {
-  int ax,ay,aw,ah;
-   PImage intro;
+  int ax, ay, aw, ah;
+  PImage intro;
   boolean aOver;
-  public Menu(){
-     intro = loadImage("K.jpg");
-    ax = width/2;
-    ay = height/2;
+  public Menu() {
+    intro = loadImage("K.jpg");
+    ax = 1000;
+    ay = 1000;
     aw = 100;
     ah = 100;
   }
   void display() {
     // Test if the cursor is over the box 
     background(intro);
-    fill(153);
+    stroke(153);
     if (mouseX > ax-aw && mouseX < ax+aw && 
-        mouseY > ay-ah && mouseY < ay+ah) { 
+      mouseY > ay-ah && mouseY < ay+ah) { 
       stroke(255);
       aOver = true;
-    }else{stroke(153); aOver = false;}
-    rectMode(CENTER);
-    rect(ax,ay,aw,ah);
+    } else {
+      stroke(153); 
+      aOver = false;
+    }
+
     fill(0, 102, 153);
     textSize(32);
-    text("Start!",ax-(aw/2),ay);
+    text("Start!", 550, 480);
+    fill(155, 155, 155);
   }
-  public boolean mouseIn(){
-    return mouseX > ax-aw && mouseX < ax+aw && 
-        mouseY > ay-ah && mouseY < ay+ah;
+  public boolean mouseIn() {
+    return mouseX > 450 && mouseX < 750 && 
+      mouseY > 380 && mouseY < 580;
   }
 }
 
