@@ -27,23 +27,14 @@ void draw() {
     translate(width/2, height/2);
     p1.move(mouse);
     translate(-p1.getX(), -p1.getY());
-      
-      pushMatrix();//player rotation
-      translate(p1.getX(), p1.getY());
-      p1.turn(mouse);
-      translate(-p1.getX(), -p1.getY());
-      if (p1.getHealth()>0) {
-        p1.display();
-      }
-      popMatrix();
-    
-      pushMatrix();//crosshair rotation
-      translate(mouse.getX(),mouse.getY());
-      rotate(radians(frameCount%360));
-      translate(-mouse.getX(),-mouse.getY());
-      mouse.display();
-      popMatrix();
-      
+    pushMatrix();//rotation
+    translate(p1.getX(), p1.getY());
+    p1.turn(mouse);
+    translate(-p1.getX(), -p1.getY());
+    if (p1.getHealth()>0) {
+      p1.display();
+    }
+    popMatrix();
     spawnMonster();
     mouse.display();
     fill(0);
@@ -150,8 +141,9 @@ void CheckCollide(Monster a, Monster b, int r) {//r being the radius check of mo
     a.getY() <= b.getY() + 60 &&
     a.getY() >= b.getY() - 60) {
     a.setCollision(true);
-  } else {
-    a.setCollision(false);
+  }
+  else{
+   a.setCollision(false); 
   }
 }
 void spawnMonster() {
