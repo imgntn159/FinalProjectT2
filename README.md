@@ -1,14 +1,33 @@
 # FinalProjectT2
-APCS Term 2 Final Project
+APCS Term 2 Final Project period 7
+TEAM NAME: Team Not Flaming Chipmunk Jugglers
 Current demo is up on the Master branch, use GameTime.pde under the GameTime folder and press play!
 
 #To Do [Immediate]
 - Add ~~monsters and~~ interactions
 - Add ~~a menu, maybe~~ a pause menu
 
+6-7-15
+-------
+- Added a more aesthetic menu
+- Added song Darude-Sandstorm
+- Different sized monsters that have health proportional to size
+- Monsters move at different speeds regardless of size
+- Added map boundaries
+
+6-6-15
+-------
+- Added monster collision interaction. Is kind of buggy, not sure how to fix
+- Monster collision prevents a certain monster from touching other monsters by pushing that certain monster back. However, if a lot of monsters surround a single monster, that monster will teleport to the edge of the cluster of monsters. If it is made that the monsters around the certain monster are pushed back instead of that monster, it may work better.
+- Took out range restriction of bullets
+- Rate of Monster spawn increases with time
+- Made a background for game.
+
 6-4-15
 -------
 - Branches merged
+- Added a function spawnMonster() that randomly spawns monsters at random coordinates
+- Made main draw() function a lot cleaner by making it call other functions that do its work
 
 6-3-15
 -------
@@ -24,6 +43,7 @@ Current demo is up on the Master branch, use GameTime.pde under the GameTime fol
 5-31-15
 -------
 - Player now rotates!
+- Monsters can track player
 
 5-28-15
 -------
@@ -47,10 +67,11 @@ Current demo is up on the Master branch, use GameTime.pde under the GameTime fol
 
 5-25-15
 -------
+- Bullets can shoot in direction the mouse is pointing by following a path.
 - Added radius (r) to bullets
 - Added more "concepts" for how collision between monsters are gonna work
 - Added recticle
-- Added HitCheck for-loop to draw()
+- Added HitCheck for-loop to draw(). HitCheck checks whether bullets are hitting monsters.
 - Added attack speed timer to Player class
 
 5-24-15
