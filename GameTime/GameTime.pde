@@ -2,6 +2,8 @@ import java.util.*;
 import ddf.minim.*;
 Minim laserm;
 AudioSample laserp;
+AudioSample monsterDeath;
+Minim monS;
 PImage wall;
 Minim minim;
 AudioPlayer player;
@@ -23,6 +25,8 @@ void setup() {
   wall = loadImage("W.png");
   time = 0;
   minim = new Minim(this);
+  monS = new Minim(this);
+  monsterDeath = monS.loadSample("combobreak.wav");
   player = minim.loadFile("song.mp3");
   laserm = new Minim(this);
   laserp = laserm.loadSample("laser.wav");
@@ -36,33 +40,31 @@ void draw() {
     time+=.00001;
     background(155);
     image(wall, 650-(p1.getX()/10), 350-(p1.getY()/10));
-    
+
     pushMatrix();
     translate(width/2, height/2);
     p1.move(mouse);
     translate(-p1.getX(), -p1.getY());
-      
-      pushMatrix();//rotation
-      translate(p1.getX(), p1.getY());
-      p1.turn(mouse);
-      translate(-p1.getX(), -p1.getY());
-      if (!(p1.dead())) {
-        p1.display();
-      }
-      popMatrix();
-      
-      pushMatrix();//mouse rotation
-      translate(mouse.getX(),mouse.getY());
-      rotate(radians(frameCount%360));
-      translate(-mouse.getX(),-mouse.getY());
-      mouse.display();
-      popMatrix();
-      
-    spawnMonster();  
-    fill(0);
-    bulletShootMonster();
+
+    pushMatrix();//rotation
+    translate(p1.getX(), p1.getY());
+    p1.turn(mouse);
+    translate(-p1.getX(), -p1.getY());
+    if (!(p1.dead())) {
+      p1.display();
+    }
+    popMatrix();
+
+    pushMatrix();//mouse rotation
+    translate(mouse.getX(), mouse.getY());
+    rotate(radians(frameCount%360));
+    translate(-mouse.getX(), -mouse.getY());
+    mouse.display();
+    popMatrix();
+
+   
     p1.aSd();
-    ArrayList<Bullet> tbulletArr = new ArrayList<Bullet>();
+   // ArrayList<Bullet> tbulletArr = new ArrayList<Bullet>();
     for (Bullet b : bulletArr) {
 
       pushMatrix();//rotation
@@ -71,15 +73,19 @@ void draw() {
       translate(-b.getX(), -b.getY());
       b.display();
       popMatrix();
-      
+
       b.shoot();
-      if (b.rInc()) {
+    }
+    /*  if (b.rInc()) {
         tbulletArr.add(b);
       }
     }
     for (Bullet b : tbulletArr) {
       bulletArr.remove(b);
-    }
+    }*/
+     spawnMonster();  
+    fill(0);
+    bulletShootMonster();
     Collide();
     monsterMovement();
     obstacle();
@@ -88,13 +94,12 @@ void draw() {
 }
 
 void obstacle() {
-  rect(-2050, 300, 50, 5000); 
-  rect(2050, 300, 50, 5000);
-  rect(50, 950, 5000, 50);
-  rect(50, -950, 5000, 50);
+  rect(-2100, -1000, 50, 5000); 
+  rect(2050, -1000, 50, 5000);
+  rect(-1000, 950, 50000, 50);
+  rect(-1000, -1000, 50000, 50);
 }
 void bulletShootMonster() {//FUNCTION THAT LETS BULLETS SHOOT MONSTERS
-
   for (int b = 0; b < bulletArr.size (); b++) {
     for (int m = 0; m < monsterArr.size (); m++) {
       if (b>0 && bulletArr.size() >0) {
@@ -117,14 +122,14 @@ void monsterMovement() { //FUNCTION THAT LETS MONSTERS MOVE AROUND
 void mousePressed() {
   if (mode == 0 && !p1.dead()) {
     if (p1.getAtkSpd() == 0) {
-      if (p1.fmode == 1){
+      if (p1.fmode == 1) {
         laserp.trigger();
         Bullet bull = new Bullet(p1.getX(), p1.getY(), 10, mouse);
         bulletArr.add(bull);
         p1.aSr();
-      }else{
+      } else {
         laserp.trigger();
-        Bullet bull1 = new Bullet(p1.getX(), p1.getY(), 10, mouse,0);
+        Bullet bull1 = new Bullet(p1.getX(), p1.getY(), 10, mouse, 0);
         Bullet bull2 = new Bullet(p1.getX(), p1.getY(), 10, mouse, PI/4);
         Bullet bull3 = new Bullet(p1.getX(), p1.getY(), 10, mouse, -PI/4);
         bulletArr.add(bull1);
@@ -152,7 +157,7 @@ boolean HitCheck(int bi, int mi, float r) {
   r-=3;
   Bullet b = bulletArr.get(bi);
   Monster m = monsterArr.get(mi);
-  float rad = m.getR() *.5;
+  float rad = m.getR() * .5;
   if (m.getX()-rad <= b.getX() + r &&
     m.getX()+rad >= b.getX() - r &&
     m.getY()-rad <= b.getY() + r &&
@@ -160,6 +165,7 @@ boolean HitCheck(int bi, int mi, float r) {
     m.damage(b.getBulletDmg());
     if (m.shouldDie()) {
       monsterArr.remove(mi);
+      monsterDeath.trigger();
     }
     bulletArr.remove(bi);
     return true;
@@ -194,33 +200,32 @@ void spawnMonster() {
   }
 }
 void keyPressed() {
-  if(!p1.dead()){
-  
-  if (key== 's'||key=='S') {
-    p1.setDown(true);
-    p1.setUp(false);
-  }
-  if (key== 'W'||key=='w') {
-    p1.setUp(true);
-    p1.setDown(false);
-  }
-  if (key== 'a' || key== 'A') {
-    p1.setLeft(true);
-    p1.setRight(false);
-  }
-  if (key== 'd' || key== 'D') {
-    p1.setLeft(false);
-    p1.setRight(true);
-  }
-  if (key== 'f' || key== 'F') {
-    if(p1.fmode>0){
-      p1.setAS(20);
-    }else{
-      p1.setAS(10);
+  if (!p1.dead()) {
+
+    if (key== 's'||key=='S') {
+      p1.setDown(true);
+      p1.setUp(false);
     }
-    p1.switchF();
-  }
-  
+    if (key== 'W'||key=='w') {
+      p1.setUp(true);
+      p1.setDown(false);
+    }
+    if (key== 'a' || key== 'A') {
+      p1.setLeft(true);
+      p1.setRight(false);
+    }
+    if (key== 'd' || key== 'D') {
+      p1.setLeft(false);
+      p1.setRight(true);
+    }
+    if (key== 'f' || key== 'F') {
+      if (p1.fmode>0) {
+        p1.setAS(20);
+      } else {
+        p1.setAS(10);
+      }
+      p1.switchF();
+    }
   }
 }
 void keyReleased() {
@@ -237,3 +242,4 @@ void keyReleased() {
     p1.setRight(false);
   }
 }
+
