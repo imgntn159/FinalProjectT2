@@ -14,7 +14,7 @@ public class Bullet {
     velocity.mult(10);
     sprite = loadImage("bullSprite.png");
     range = 0;
-    mrange = 30;
+    mrange = 50;
   }
   //access granted
   public float getX() {
@@ -48,4 +48,3 @@ public class Bullet {
     image(sprite,location.x,location.y);
   }
 }
-

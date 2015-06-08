@@ -36,19 +36,28 @@ void draw() {
     translate(width/2, height/2);
     p1.move(mouse);
     translate(-p1.getX(), -p1.getY());
-    pushMatrix();//rotation
-    translate(p1.getX(), p1.getY());
-    p1.turn(mouse);
-    translate(-p1.getX(), -p1.getY());
-    if (p1.getHealth()>0) {
-      p1.display();
-    }
-    popMatrix();
-    spawnMonster();
+      
+      pushMatrix();//rotation
+      translate(p1.getX(), p1.getY());
+      p1.turn(mouse);
+      translate(-p1.getX(), -p1.getY());
+      if (p1.getHealth()>0) {
+        p1.display();
+      }
+      popMatrix();
+      
+      pushMatrix();//mouse rotation
+      translate(mouse.getX(),mouse.getY());
+      rotate(radians(frameCount%360));
+      translate(-mouse.getX(),-mouse.getY());
+      mouse.display();
+      popMatrix();
+      
     mouse.display();
     fill(0);
     bulletShootMonster();
     p1.aSd();
+    ArrayList<Bullet> tbulletArr = new ArrayList<Bullet>();
     for (Bullet b : bulletArr) {
 
       pushMatrix();//rotation
@@ -57,26 +66,22 @@ void draw() {
       translate(-b.getX(), -b.getY());
       b.display();
       popMatrix();
-
+      
       b.shoot();
+      if (b.rInc()) {
+        tbulletArr.add(b);
+      }
     }
-    /* THIS PART MESSES WITH BULLET ARRAY HITCHECK
-     INDEX OUT OF BOUNDS
-     ArrayList<Bullet> tbulletArr = new ArrayList<Bullet>();
-     if (b.rInc()) {
-     tbulletArr.add(b);
-     }
-     }
-     for (Bullet b : tbulletArr) {
-     bulletArr.remove(b);
-     }
-     */
+    for (Bullet b : tbulletArr) {
+      bulletArr.remove(b);
+    }
     Collide();
     monsterMovement();
     obstacle();
     popMatrix();
   }
 }
+
 void obstacle() {
   rect(-2050, 300, 50, 5000); 
   rect(2050, 300, 50, 5000);

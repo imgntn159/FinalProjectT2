@@ -1,6 +1,6 @@
 public class Player {
   private float x, y, w, h;
-  private int health, atkSpd, aSCap;
+  private int health, atkSpd, aSCap, fmode;
   private PImage dude;
   boolean left = false;
   boolean right = false;
