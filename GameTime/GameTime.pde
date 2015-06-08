@@ -20,7 +20,7 @@ void setup() {
   p1 = new Player(600, 350, 50, 50);
   mouse = new Mouse(3, 3);
   menu = new Menu();
-  wall = loadImage("W.jpeg");
+  wall = loadImage("W.png");
   time = 0;
   minim = new Minim(this);
   player = minim.loadFile("song.mp3");

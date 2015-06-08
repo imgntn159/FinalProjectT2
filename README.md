@@ -7,10 +7,15 @@
 # Project Name: Attack of the Black Balls
 - A 2D top down shooter game similar to Hotline Miami. The player's objective is to stay alive as long as possible and rack up as many kills as possible. The black balls of various speed and size will endlessly chase after the player until they have caught him and sucked his life energy. If the player runs out of life, he will die. The player is equipped with a gun that has infinite ammunition.
 
+Movement: WASD
+Firing: Left Mouse Click
+Switch firing modes: F
+
 #To Do [Immediate]
-- Add ~~monsters and~~ interactions
-- Add ~~a menu, maybe~~ a pause menu
-- Different bullet types
+- Add more monsters/add monster sprites
+- Add ~~a menu~~ maybe a pause menu
+- ~~Different~~ MOAR bullet types (or a grenade)
+- Add bullet sprite for shotgun
 
 6-7-15
 -------
@@ -19,6 +24,10 @@
 - Different sized monsters that have health proportional to size
 - Monsters move at different speeds regardless of size
 - Added map boundaries
+- Changed background image
+- Added shooting sound (pew!)
+- Added a "shotgun", switch firing modes with "f"
+	- Attack speed and damage change when switching 
 
 6-6-15
 -------
