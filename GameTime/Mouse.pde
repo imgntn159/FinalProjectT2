@@ -4,13 +4,14 @@ public class Mouse {
   public Mouse(float w, float h) {
     this.w = w;
     this.h = h;
+    cross.resize(50,50);
   }
   //access granted
   public float getX() {
-    return mouseX+xmod;
+    return mouseX+xmod-40;
   }
   public float getY() {
-    return mouseY+ymod;
+    return mouseY+ymod-10;
   }
   public float getXmod() {
     return xmod;

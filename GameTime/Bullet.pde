@@ -16,6 +16,12 @@ public class Bullet {
     range = 0;
     mrange = 50;
   }
+  public Bullet(float x, float y, float r,Mouse m,float a) {
+    this(x,y,r,m);
+    velocity.rotate(a);
+    bulletDamage = 20;
+    mrange = 30;
+  }
   //access granted
   public float getX() {
     return location.x;

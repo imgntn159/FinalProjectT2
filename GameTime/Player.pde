@@ -15,6 +15,7 @@ public class Player {
     atkSpd = 0;
     aSCap = 10;
     dude = loadImage("Dude.png");
+    fmode = 1;
   }
   //access granted
   public float getX() {
@@ -32,6 +33,10 @@ public class Player {
   public int getAtkSpd(){
     return atkSpd;
   }
+  public void setAS(int as){
+    aSCap = as;
+    aSr();
+  }
   public void aSd() {//reduces attack speed timer (attackSpeedDown)
     if (atkSpd == 0) {
       return;
@@ -39,7 +44,7 @@ public class Player {
       atkSpd--;
     }
   }
-  public void aSr() {//resets attack speed timer (attackSppedReset)
+  public void aSr() {//resets attack speed timer (attackSpeedReset)
     atkSpd = aSCap;
   }
   
@@ -96,10 +101,16 @@ public class Player {
   void display() {
     imageMode(CENTER);
     stroke(255, 153, 0);
-    ellipse(x-10, y, w, h);//rect is easier than ellipse for sprite
+    //ellipse(x-10, y, w, h);//hitbox
     //for rect(the first 2 param specify the coordinates
     //last 2 specify the width n height
     image(dude,x,y);
+  }
+  boolean dead(){
+    return !(health>0);
+  }
+  void switchF(){
+    fmode *= -1;
   }
 }
 

@@ -1,5 +1,7 @@
 import java.util.*;
 import ddf.minim.*;
+Minim laserm;
+AudioSample laserp;
 PImage wall;
 Minim minim;
 AudioPlayer player;
@@ -20,8 +22,10 @@ void setup() {
   menu = new Menu();
   wall = loadImage("W.jpeg");
   time = 0;
-  minim=new Minim(this);
+  minim = new Minim(this);
   player = minim.loadFile("song.mp3");
+  laserm = new Minim(this);
+  laserp = laserm.loadSample("laser.wav");
 }
 
 void draw() {
@@ -32,6 +36,7 @@ void draw() {
     time+=.00001;
     background(155);
     image(wall, 650-(p1.getX()/10), 350-(p1.getY()/10));
+    
     pushMatrix();
     translate(width/2, height/2);
     p1.move(mouse);
@@ -41,7 +46,7 @@ void draw() {
       translate(p1.getX(), p1.getY());
       p1.turn(mouse);
       translate(-p1.getX(), -p1.getY());
-      if (p1.getHealth()>0) {
+      if (!(p1.dead())) {
         p1.display();
       }
       popMatrix();
@@ -53,7 +58,7 @@ void draw() {
       mouse.display();
       popMatrix();
       
-    mouse.display();
+    spawnMonster();  
     fill(0);
     bulletShootMonster();
     p1.aSd();
@@ -110,11 +115,23 @@ void monsterMovement() { //FUNCTION THAT LETS MONSTERS MOVE AROUND
   }
 }
 void mousePressed() {
-  if (mode == 0) {
+  if (mode == 0 && !p1.dead()) {
     if (p1.getAtkSpd() == 0) {
-      Bullet bull = new Bullet(p1.getX(), p1.getY(), 10, mouse);
-      bulletArr.add(bull);
-      p1.aSr();
+      if (p1.fmode == 1){
+        laserp.trigger();
+        Bullet bull = new Bullet(p1.getX(), p1.getY(), 10, mouse);
+        bulletArr.add(bull);
+        p1.aSr();
+      }else{
+        laserp.trigger();
+        Bullet bull1 = new Bullet(p1.getX(), p1.getY(), 10, mouse,0);
+        Bullet bull2 = new Bullet(p1.getX(), p1.getY(), 10, mouse, PI/4);
+        Bullet bull3 = new Bullet(p1.getX(), p1.getY(), 10, mouse, -PI/4);
+        bulletArr.add(bull1);
+        bulletArr.add(bull2);
+        bulletArr.add(bull3);
+        p1.aSr();
+      }
     }//added attack speed constraint
   } else if (mode == 1) {
     if (menu.mouseIn()) {
@@ -177,6 +194,8 @@ void spawnMonster() {
   }
 }
 void keyPressed() {
+  if(!p1.dead()){
+  
   if (key== 's'||key=='S') {
     p1.setDown(true);
     p1.setUp(false);
@@ -193,6 +212,16 @@ void keyPressed() {
     p1.setLeft(false);
     p1.setRight(true);
   }
+  if (key== 'f' || key== 'F') {
+    if(p1.fmode>0){
+      p1.setAS(20);
+    }else{
+      p1.setAS(10);
+    }
+    p1.switchF();
+  }
+  
+  }
 }
 void keyReleased() {
   if (key== 'w'||key=='W') {
@@ -208,4 +237,3 @@ void keyReleased() {
     p1.setRight(false);
   }
 }
-
