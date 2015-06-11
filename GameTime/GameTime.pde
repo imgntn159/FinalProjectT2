@@ -37,6 +37,7 @@ void setup() {
   player = minim.loadFile("song.mp3");
   laserm = new Minim(this);
   laserp = laserm.loadSample("laser.wav");
+  score = 0;
 }
 
 void draw() {
@@ -94,7 +95,7 @@ void draw() {
     }
     
     spawnMonster(); 
-   bulletShootMonster(); 
+    bulletShootMonster(); 
     fill(0);
     Collide();
     monsterMovement();
@@ -104,6 +105,7 @@ void draw() {
     textSize(32); // Set text size to 32
     fill(0);
     text(""+p1.getHealth(), 0, 40);
+    text(""+score, 0, 80);
     
     if(!p1.alive()){
       textSize(90);
@@ -162,6 +164,7 @@ boolean HitCheck(int bi, int mi, float r) {
     m.getY()+rad >= b.getY() - r) {
     m.damage(b.getBulletDmg());
     if (m.shouldDie()) {
+      score+=10;
       monsterArr.remove(mi);
       monsterDeath.trigger();
     }
@@ -293,6 +296,7 @@ void keyPressed() {
     monsterArr = new ArrayList<Monster>();
     player.rewind();
     player.pause();
+    score = 0;
   }
 }
 void keyReleased() {

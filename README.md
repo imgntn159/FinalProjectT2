@@ -16,7 +16,6 @@ Back to Menu: M
 - Add more monsters/add monster sprites
 - Add ~~a menu~~ maybe a pause menu
 - ~~Different~~ MOAR bullet types (or a grenade)
-- Add bullet sprite for shotgun
 
 6-10-15
 -------
@@ -25,6 +24,7 @@ Back to Menu: M
 - Added "m" to return to menu
 - Added health on the top left
 - Added coneceptual PowerUp class
+- Add score, 10 points per monster
 
 6-7-15
 -------
