@@ -10,12 +10,21 @@
 Movement: WASD
 Firing: Left Mouse Click
 Switch firing modes: F
+Back to Menu: M
 
 #To Do [Immediate]
 - Add more monsters/add monster sprites
 - Add ~~a menu~~ maybe a pause menu
 - ~~Different~~ MOAR bullet types (or a grenade)
 - Add bullet sprite for shotgun
+
+6-10-15
+-------
+- Hold to fire
+- Added shotgun pellet sprite
+- Added "m" to return to menu
+- Added health on the top left
+- Added coneceptual PowerUp class
 
 6-7-15
 -------

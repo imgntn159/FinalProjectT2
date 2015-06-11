@@ -3,11 +3,11 @@ public class Bullet {
   private int bulletDamage;
   private PVector location,velocity;
   private PImage sprite;
-  public Bullet(float x, float y, float r,Mouse m) {
+  public Bullet(float x, float y, float r, int d, Mouse m) {
     this.r = r;
     float xSlope = m.getX() - x;
     float ySlope = m.getY() - y;
-    bulletDamage = 5;
+    bulletDamage = d;
     location = new PVector(x,y);
     velocity = new PVector(xSlope,ySlope);
     velocity.normalize();
@@ -16,11 +16,12 @@ public class Bullet {
     range = 0;
     mrange = 50;
   }
-  public Bullet(float x, float y, float r,Mouse m,float a) {
-    this(x,y,r,m);
+  public Bullet(float x, float y, float r, int d, Mouse m, float a) {
+    this(x,y,r,d,m);
     velocity.rotate(a);
     bulletDamage = 20;
     mrange = 30;
+    sprite = loadImage("pellSprite.png");
   }
   //access granted
   public float getX() {

@@ -28,13 +28,8 @@ public class Mouse {
   }
   
   void display() {
-    //pushMatrix();
     imageMode(CENTER);
-    //translate(-getX(),-getY());
-    //rotate(radians(frameCount%360));
-    //translate(getX(),getY());
     image(cross, getX(),getY());
-    //popMatrix();
   }
 }
 

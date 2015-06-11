@@ -2,6 +2,7 @@ public class Player {
   private float x, y, w, h;
   private int health, atkSpd, aSCap, fmode;
   private PImage dude;
+  int dMod;
   boolean left = false;
   boolean right = false;
   boolean up = false;
@@ -13,7 +14,7 @@ public class Player {
     this.h = h;
     health = 100;
     atkSpd = 0;
-    aSCap = 10;
+    aSCap = 5;
     dude = loadImage("Dude.png");
     fmode = 1;
   }
@@ -25,11 +26,16 @@ public class Player {
     return y;
   }
   public int getHealth() {
+    if (health <= 0){
+      return 0;
+    }
     return health;
   }
   public void damage(int d) {
     health -= d; //reduces health by d
   }
+  
+  //Attack Speed
   public int getAtkSpd(){
     return atkSpd;
   }
@@ -84,15 +90,6 @@ public class Player {
       //translate(-5,0);
     }
   }
-  /*void dash(Mouse m){
-    PVector location = new PVector(x,y);
-    PVector velocity = new PVector(m.getX() - x, m.getY() - y);
-    velocity.normalize();
-    velocity.mult(20);
-    location = PVector.add(location,velocity);
-    x = location.x;
-    y = location.y;
-  }*/
   void turn(Mouse m){
     PVector other = new PVector(m.getX()-x,m.getY()-y);
     rotate(other.heading());
@@ -106,11 +103,14 @@ public class Player {
     //last 2 specify the width n height
     image(dude,x,y);
   }
-  boolean dead(){
-    return !(health>0);
+  boolean alive(){
+    return health>0;
   }
   void switchF(){
     fmode *= -1;
+  }
+  void getGrenade(){
+    fmode = 2;
   }
 }
 
