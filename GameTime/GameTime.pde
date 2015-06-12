@@ -97,7 +97,7 @@ void draw() {
     spawnMonster(); 
     bulletShootMonster(); 
     fill(0);
-    Collide();
+    //Collide();
     monsterMovement();
     obstacle();
     popMatrix();
@@ -174,7 +174,7 @@ boolean HitCheck(int bi, int mi, float r) {
   return false;
 }
 
-void Collide() {
+/*void Collide() {
   for (int i = 0; i < monsterArr.size (); i++) {
     Monster m = monsterArr.get(i);
     for (int f = i + 1; f < monsterArr.size (); f++) {
@@ -192,6 +192,7 @@ void CheckCollide(Monster a, Monster b, int r) {//r being the radius check of mo
     a.setCollision(false);
   }
 }
+*/
 void spawnMonster() {
   if (time > 10)
     time = 10;
