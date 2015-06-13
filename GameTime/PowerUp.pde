@@ -21,4 +21,8 @@ public class PowerUp{
     }
     return false;
   }
+  void display(){
+    imageMode(CENTER);
+    image(sprite,x,y);
+  }
 }

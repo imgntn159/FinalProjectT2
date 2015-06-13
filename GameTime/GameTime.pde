@@ -140,8 +140,7 @@ void monsterMovement() { //FUNCTION THAT LETS MONSTERS MOVE AROUND
     m.follow(p1.getX(), p1.getY());
     playerDamaged(m);
     m.display();
-    if (!m.getCollision())
-      m.move();
+    m.move();
   }
 }
 void playerDamaged(Monster m) {
