@@ -124,7 +124,7 @@ void obstacle() {
   rect(-1000, -1000, 50000, 50);
 }
 
-void bulletShootMonster() {//FUNCTION THAT LETS BULLETS SHOOT MONSTERS
+void bulletShootMonster() {
   for (int b = 0; b < bulletArr.size (); b++) {
     for (int m = 0; m < monsterArr.size (); m++) {
       if (b>0 && bulletArr.size() >0) {
@@ -135,11 +135,17 @@ void bulletShootMonster() {//FUNCTION THAT LETS BULLETS SHOOT MONSTERS
     }
   }
 }
-void monsterMovement() { //FUNCTION THAT LETS MONSTERS MOVE AROUND
+void monsterMovement() {
   for (Monster m : monsterArr) {
     m.follow(p1);
     playerDamaged(m);
+    pushMatrix();//rotation
+    translate(m.getX(), m.getY());
+    m.turn();
+    translate(-m.getX(), -m.getY());
     m.display();
+    popMatrix();
+    
   }
 }
 void playerDamaged(Monster m) {
@@ -172,25 +178,6 @@ boolean HitCheck(int bi, int mi, float r) {
   return false;
 }
 
-/*void Collide() {
-  for (int i = 0; i < monsterArr.size (); i++) {
-    Monster m = monsterArr.get(i);
-    for (int f = i + 1; f < monsterArr.size (); f++) {
-      m.collision(monsterArr.get(f));
-    }
-  }
-}
-void CheckCollide(Monster a, Monster b, int r) {//r being the radius check of monster a
-  if (a.getX() <= b.getX() + 60 &&
-    a.getX() >= b.getX() - 60 &&
-    a.getY() <= b.getY() + 60 &&
-    a.getY() >= b.getY() - 60) {
-    a.setCollision(true);
-  } else {
-    a.setCollision(false);
-  }
-}
-*/
 void spawnMonster() {
   if (time > 10)
     time = 10;
@@ -222,7 +209,7 @@ void mousePressed() {
         bulletArr.add(bull5);
         p1.aSr();
       }
-    }//added attack speed constraint
+    }
   } else if (mode == 1) {
     if (menu.mouseIn()) {
       mode = 0;
@@ -245,17 +232,8 @@ void constantFIRE(){
         Bullet bull = new Bullet(p1.getX(), p1.getY(), 10, 3+p1.dMod, mouse);
         bulletArr.add(bull);
         p1.aSr();
-      } /*else {
-        laserp.trigger();
-        Bullet bull1 = new Bullet(p1.getX(), p1.getY(), 10, 20+p1.dMod, mouse, 0);
-        Bullet bull2 = new Bullet(p1.getX(), p1.getY(), 10, 20+p1.dMod, mouse, PI/6);
-        Bullet bull3 = new Bullet(p1.getX(), p1.getY(), 10, 20+p1.dMod, mouse, -PI/6);
-        bulletArr.add(bull1);
-        bulletArr.add(bull2);
-        bulletArr.add(bull3);
-        p1.aSr();
-      }*/
-    }//added attack speed constraint
+      }
+    }
   }
 }
 

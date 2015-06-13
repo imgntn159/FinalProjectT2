@@ -100,10 +100,6 @@ public class Player {
   
   void display() {
     imageMode(CENTER);
-    stroke(255, 153, 0);
-    //ellipse(x-10, y, w, h);//hitbox
-    //for rect(the first 2 param specify the coordinates
-    //last 2 specify the width n height
     image(dude,x,y);
   }
   boolean alive(){
