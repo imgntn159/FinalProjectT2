@@ -25,6 +25,9 @@ public class Player {
   public float getY() {
     return y;
   }
+  public PVector getVector(){
+    return new PVector(x,y);
+  }
   public int getHealth() {
     if (health <= 0){
       return 0;
@@ -112,5 +115,7 @@ public class Player {
   void getGrenade(){
     fmode = 2;
   }
+  /*void consume(PowerUp p){
+    if*/
 }
 

@@ -137,10 +137,9 @@ void bulletShootMonster() {//FUNCTION THAT LETS BULLETS SHOOT MONSTERS
 }
 void monsterMovement() { //FUNCTION THAT LETS MONSTERS MOVE AROUND
   for (Monster m : monsterArr) {
-    m.follow(p1.getX(), p1.getY());
+    m.follow(p1);
     playerDamaged(m);
     m.display();
-    m.move();
   }
 }
 void playerDamaged(Monster m) {

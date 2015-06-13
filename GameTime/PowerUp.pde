@@ -21,6 +21,12 @@ public class PowerUp{
     }
     return false;
   }
+  public int getType(){
+    return type;
+  }
+  public int getValue(){
+    return value;
+  }
   void display(){
     imageMode(CENTER);
     image(sprite,x,y);

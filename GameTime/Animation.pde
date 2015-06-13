@@ -9,14 +9,12 @@ public class Animation{
     this.maxL = maxL;
     frame = 0;
   }
-  public void advance(){
+  public boolean advance(){
     frame++;
-  }
-  public boolean done(){
     return frame >= maxL;
   }
   void display(){
-    if(!done()){
+    if(frame >= maxL){
       pic = loadImage(base + "/" + base + frame + ".png");
       imageMode(CENTER);
       image(pic,x,y);
