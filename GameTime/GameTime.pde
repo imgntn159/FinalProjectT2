@@ -19,6 +19,7 @@ Random rand = new Random();
 ArrayList<Bullet> bulletArr = new ArrayList<Bullet>();
 ArrayList<Monster> monsterArr = new ArrayList<Monster>();
 ArrayList<PowerUp> puArr = new ArrayList<PowerUp>();
+ArrayList<Animation> aniArr = new ArrayList<Animation>();
 float time;
 Player p1;
 Mouse mouse;
@@ -101,6 +102,7 @@ void draw() {
     for (Bullet b : tbulletArr) {
       bulletArr.remove(b);
     }
+    aniDisplay();
     
     powerDisplay();
     powerConsume();
@@ -125,13 +127,14 @@ void draw() {
   }
 }
 
+//The walls
 void obstacle() {
   rect(-2100, -1000, 50, 5000); 
   rect(2050, -1000, 50, 5000);
   rect(-1000, 950, 50000, 50);
   rect(-1000, -1000, 50000, 50);
 }
-
+//Monster Interactions
 void bulletShootMonster() {
   for (int b = 0; b < bulletArr.size (); b++) {
     for (int m = 0; m < monsterArr.size (); m++) {
@@ -141,6 +144,47 @@ void bulletShootMonster() {
             b--;
       }
     }
+  }
+}
+void playerDamaged(Monster m) {
+  float r = m.getR() * .5;
+  if (m.getX() <= p1.getX() + r &&
+    m.getX() >= p1.getX() - r &&
+    m.getY() <= p1.getY() + r &&
+    m.getY() >= p1.getY() - r) {
+    p1.damage(1);
+  }
+}
+boolean HitCheck(int bi, int mi, float r) {
+  r-=3;
+  Bullet b = bulletArr.get(bi);
+  Monster m = monsterArr.get(mi);
+  float rad = m.getR() * .5;
+  if (m.getX()-rad <= b.getX() + r &&
+    m.getX()+rad >= b.getX() - r &&
+    m.getY()-rad <= b.getY() + r &&
+    m.getY()+rad >= b.getY() - r) {
+    m.damage(b.getBulletDmg());
+    if (m.shouldDie()) {
+      score+=10;
+      if(rand.nextInt(20) == 19){
+        puArr.add(new PowerUp(m.getX(),m.getY(),0,20));
+      }
+      aniArr.add(new Animation("zDeath", 5, m.getVector(), m.getR(),m.rotation()));
+      monsterArr.remove(mi);
+      monsterDeath.trigger();
+    }
+    bulletArr.remove(bi);
+    return true;
+  }
+  return false;
+}
+void spawnMonster() {
+  if (time > 10)
+    time = 10;
+  if (r.nextInt(100) < 1+(time)) {
+    Monster john = new Monster(r.nextInt(4000)-2000, r.nextInt(2000)-1000);
+    monsterArr.add(john);
   }
 }
 void monsterMovement() {
@@ -155,6 +199,7 @@ void monsterMovement() {
     popMatrix();   
   }
 }
+//PowerUp Interactions
 void powerDisplay(){
   ArrayList<PowerUp> temp = new ArrayList<PowerUp>();
   for (PowerUp p:puArr){
@@ -179,49 +224,27 @@ void powerConsume(){
     puArr.remove(p);
   }
 }
-
-
-void playerDamaged(Monster m) {
-  float r = m.getR() * .5;
-  if (m.getX() <= p1.getX() + r &&
-    m.getX() >= p1.getX() - r &&
-    m.getY() <= p1.getY() + r &&
-    m.getY() >= p1.getY() - r) {
-    p1.damage(1);
-  }
-}
-boolean HitCheck(int bi, int mi, float r) {
-  r-=3;
-  Bullet b = bulletArr.get(bi);
-  Monster m = monsterArr.get(mi);
-  float rad = m.getR() * .5;
-  if (m.getX()-rad <= b.getX() + r &&
-    m.getX()+rad >= b.getX() - r &&
-    m.getY()-rad <= b.getY() + r &&
-    m.getY()+rad >= b.getY() - r) {
-    m.damage(b.getBulletDmg());
-    if (m.shouldDie()) {
-      score+=10;
-      //if(rand.nextInt(20) == 19){
-        puArr.add(new PowerUp(m.getX(),m.getY(),0,20));
-      //}
-      monsterArr.remove(mi);
-      monsterDeath.trigger();
+//SpecialFX
+void aniDisplay(){
+  ArrayList<Animation> temp = new ArrayList<Animation>();
+  for (Animation a:aniArr){
+    if(a.advance()){
+      temp.add(a);
     }
-    bulletArr.remove(bi);
-    return true;
+    pushMatrix();//rotation
+    translate(a.getX(), a.getY());
+    a.turn();
+    translate(-a.getX(), -a.getY());
+    a.display();
+    popMatrix();  
   }
-  return false;
+  for (Animation a:temp){
+    aniArr.remove(a);
+  }
 }
 
-void spawnMonster() {
-  if (time > 10)
-    time = 10;
-  if (r.nextInt(100) < 1+(time)) {
-    Monster john = new Monster(r.nextInt(4000)-2000, r.nextInt(2000)-1000);
-    monsterArr.add(john);
-  }
-}
+
+
 
 void mousePressed() {
   if (mode == 0 && p1.alive()) {

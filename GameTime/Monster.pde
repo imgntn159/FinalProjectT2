@@ -27,7 +27,10 @@ public class Monster {
   public PVector getVector() {
     return location;
   }
-  float getR() {
+  public float rotation(){
+    return direction.heading();
+  }
+  public float getR() {
     return r;
   }
   public boolean shouldDie() {

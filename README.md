@@ -5,7 +5,7 @@
 - Current demo is up on the Master branch, use GameTime.pde under the GameTime folder and press play!
 
 # Project Name: Attack of the Black Balls
-- A 2D top down shooter game similar to Hotline Miami. The player's objective is to stay alive as long as possible and rack up as many kills as possible. The black balls of various speed and size will endlessly chase after the player until they have caught him and sucked his life energy. If the player runs out of life, he will die. The player is equipped with a gun that has infinite ammunition.
+- A 2D top down shooter game similar to Hotline Miami. The player's objective is to stay alive as long as possible and rack up as many kills as possible. The ~~black balls~~ zombies of various speed and size will endlessly chase after the player until they have caught him and sucked his life energy. If the player runs out of life, he will die. The player is equipped with a gun that has infinite ammunition.
 
 Movement: WASD
 Firing: Left Mouse Click
@@ -13,9 +13,13 @@ Switch firing modes: F
 Back to Menu: M
 
 #To Do [Immediate]
-- Add more monsters/add monster sprites
+- Add more monsters~~/add monster sprites~~
 - Add ~~a menu~~ maybe a pause menu
-- ~~Different~~ MOAR bullet types (or a grenade)
+- GRENADESSSSS
+
+6-14-15
+-------
+- Zombies have a death animation
 
 6-13-15
 -------
