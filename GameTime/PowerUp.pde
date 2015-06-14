@@ -38,4 +38,3 @@ public class PowerUp {
     image(sprite, x, y);
   }
 }
-

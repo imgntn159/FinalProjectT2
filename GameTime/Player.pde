@@ -124,5 +124,6 @@ public class Player {
         health = 100;
       }
     }
+  }
 }
 
