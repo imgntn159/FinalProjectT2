@@ -17,6 +17,13 @@ Back to Menu: M
 - Add ~~a menu~~ maybe a pause menu
 - ~~Different~~ MOAR bullet types (or a grenade)
 
+6-13-15
+-------
+- Removed all forms of collision
+- Zombies now have a sprite. will change title
+	- They also rotate to follow the player. neat
+- Health power-up added (occurs every monster kill)
+
 6-10-15
 -------
 - Hold to fire
