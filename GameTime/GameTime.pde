@@ -139,8 +139,8 @@ void draw() {
 void obstacle() {
   rect(-2100, -1000, 50, 5000); 
   rect(2050, -1000, 50, 5000);
-  rect(-1000, 950, 50000, 50);
-  rect(-1000, -1000, 50000, 50);
+  rect(-2100, 950, 50000, 50);
+  rect(-2100, -1000, 50000, 50);
 }
 //Monster Interactions
 void bulletShootMonster() {
@@ -191,7 +191,7 @@ void spawnMonster() {
   if (time > 10)
     time = 10;
   if (r.nextInt(100) < 1+(time)) {
-    Monster john = new Monster(r.nextInt(4000)-2000, r.nextInt(2000)-1000);
+    Monster john = new Monster(r.nextInt(3000)-2000, r.nextInt(1500)-1000);
     monsterArr.add(john);
   }
 }
