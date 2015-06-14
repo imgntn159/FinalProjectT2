@@ -106,12 +106,23 @@ public class Player {
     return health>0;
   }
   void switchF(){
-    fmode *= -1;
+    if (fmode == 1){
+      fmode = 2;
+    } else if (fmode == 2){
+      fmode = 1;
+    } else {
+      fmode = 1;
+    }
   }
   void getGrenade(){
-    fmode = 2;
+    fmode = 3;
   }
-  /*void consume(PowerUp p){
-    if*/
+  void consume(PowerUp p){
+    if(p.getType() == 0){
+      health+=p.getValue();
+      if(health > 100){
+        health = 100;
+      }
+    }
 }
 

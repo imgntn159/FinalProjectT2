@@ -1,5 +1,6 @@
 import java.util.*;
 import ddf.minim.*;
+
 //sound
 Minim laserm;
 AudioSample laserp;
@@ -7,20 +8,26 @@ Minim monS;
 AudioSample monsterDeath;
 Minim minim;
 AudioPlayer player;
+
 //awall
 PImage wall;
+
 //other stuffs
 int mode;
 Random r = new Random();
+Random rand = new Random();
 ArrayList<Bullet> bulletArr = new ArrayList<Bullet>();
 ArrayList<Monster> monsterArr = new ArrayList<Monster>();
+ArrayList<PowerUp> puArr = new ArrayList<PowerUp>();
 float time;
 Player p1;
 Mouse mouse;
 Menu menu;
+
 //score
 int score;
-//why
+
+//rapid fire
 boolean shooting = false;
 
 void setup() {
@@ -90,14 +97,15 @@ void draw() {
         tbulletArr.add(b);
       }
     }
+    bulletShootMonster(); 
     for (Bullet b : tbulletArr) {
       bulletArr.remove(b);
     }
     
+    powerDisplay();
+    powerConsume();
     spawnMonster(); 
-    bulletShootMonster(); 
     fill(0);
-    //Collide();
     monsterMovement();
     obstacle();
     popMatrix();
@@ -144,10 +152,35 @@ void monsterMovement() {
     m.turn();
     translate(-m.getX(), -m.getY());
     m.display();
-    popMatrix();
-    
+    popMatrix();   
   }
 }
+void powerDisplay(){
+  ArrayList<PowerUp> temp = new ArrayList<PowerUp>();
+  for (PowerUp p:puArr){
+    if(p.timeOut()){
+      temp.add(p);
+    }
+    p.display();
+  }
+  for (PowerUp p:temp){
+    puArr.remove(p);
+  }
+}
+void powerConsume(){
+  ArrayList<PowerUp> temp = new ArrayList<PowerUp>();
+  for (PowerUp p:puArr){
+    if(PVector.sub(p1.getVector(),p.getVector()).mag() <= 30){
+      temp.add(p);
+      p1.consume(p);
+    }
+  }
+  for (PowerUp p:temp){
+    puArr.remove(p);
+  }
+}
+
+
 void playerDamaged(Monster m) {
   float r = m.getR() * .5;
   if (m.getX() <= p1.getX() + r &&
@@ -169,6 +202,9 @@ boolean HitCheck(int bi, int mi, float r) {
     m.damage(b.getBulletDmg());
     if (m.shouldDie()) {
       score+=10;
+      //if(rand.nextInt(20) == 19){
+        puArr.add(new PowerUp(m.getX(),m.getY(),0,20));
+      //}
       monsterArr.remove(mi);
       monsterDeath.trigger();
     }

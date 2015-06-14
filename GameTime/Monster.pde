@@ -15,11 +15,11 @@ public class Monster {
     zombie = loadImage("zombie.png");
     zombie.resize(r+10,r+10);
   }
-  public float getX() {
-    return location.x;
+  public int getX() {
+    return (int)location.x;
   }
-  public float getY() {
-    return location.y;
+  public int getY() {
+    return (int)location.y;
   }
   public float getV() {
     return v;

@@ -11,7 +11,7 @@ public class Bullet {
     location = new PVector(x,y);
     velocity = new PVector(xSlope,ySlope);
     velocity.normalize();
-    velocity.mult(10);
+    velocity.mult(5);
     sprite = loadImage("bullSprite.png");
     range = 0;
     mrange = 50;
