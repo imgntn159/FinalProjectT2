@@ -13,6 +13,9 @@ public class Mouse {
   public float getY() {
     return mouseY+ymod-10;
   }
+  public PVector getVector(){
+    return new PVector(getX(),getY());
+  }
   public float getXmod() {
     return xmod;
   }

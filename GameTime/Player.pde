@@ -17,6 +17,7 @@ public class Player {
     aSCap = 5;
     dude = loadImage("Dude.png");
     fmode = 1;
+    dMod = 1;
   }
   //access granted
   public float getX() {
@@ -108,8 +109,6 @@ public class Player {
   void switchF(){
     if (fmode == 1){
       fmode = 2;
-    } else if (fmode == 2){
-      fmode = 1;
     } else {
       fmode = 1;
     }

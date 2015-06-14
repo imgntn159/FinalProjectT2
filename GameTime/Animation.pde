@@ -3,14 +3,15 @@ public class Animation{
   int x, y, frame, maxL, timer, r;
   float rotation;
   private PImage pic;
-  public Animation(String s, int maxL, int x, int y){
+  public Animation(String s, int maxL, int x, int y, float r){
     this.x = x;
     this.y = y;
     base = s;
     this.maxL = maxL;
-    this.rotation = rotation;
+    rotation = 0;
     frame = 0;
     timer = 0;
+    this.r = (int)r;
   }
   public Animation(String s, int maxL, PVector v, float r, float rotation){
     x = (int)v.x;
@@ -42,7 +43,9 @@ public class Animation{
   void display(){
     if(frame <= maxL){
       pic = loadImage(base + "/" + frame + ".png");
-      pic.resize(r+10,r+10);
+      if (r!= 0){
+        pic.resize(r+10,r+10);
+      }
       imageMode(CENTER);
       image(pic,x,y);
     }

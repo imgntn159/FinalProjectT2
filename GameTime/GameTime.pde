@@ -6,6 +6,8 @@ Minim laserm;
 AudioSample laserp;
 Minim monS;
 AudioSample monsterDeath;
+Minim powerS;
+AudioSample powerupS;
 Minim minim;
 AudioPlayer player;
 
@@ -17,6 +19,7 @@ int mode;
 Random r = new Random();
 Random rand = new Random();
 ArrayList<Bullet> bulletArr = new ArrayList<Bullet>();
+ArrayList<Grenade> grenadeArr = new ArrayList<Grenade>();
 ArrayList<Monster> monsterArr = new ArrayList<Monster>();
 ArrayList<PowerUp> puArr = new ArrayList<PowerUp>();
 ArrayList<Animation> aniArr = new ArrayList<Animation>();
@@ -41,10 +44,14 @@ void setup() {
   time = 0;
   minim = new Minim(this);
   monS = new Minim(this);
-  monsterDeath = monS.loadSample("combobreak.wav");
-  player = minim.loadFile("song.mp3");
   laserm = new Minim(this);
-  laserp = laserm.loadSample("laser.wav");
+  powerS = new Minim(this);
+  
+  player = minim.loadFile("sounds/song.mp3");
+  monsterDeath = monS.loadSample("sounds/combobreak.wav");
+  laserp = laserm.loadSample("sounds/laser.wav");
+  powerupS = powerS.loadSample("sounds/powerup.wav");
+  
   score = 0;
 }
 
@@ -106,6 +113,7 @@ void draw() {
     
     powerDisplay();
     powerConsume();
+    grenadeDisplay();
     spawnMonster(); 
     fill(0);
     monsterMovement();
@@ -172,7 +180,7 @@ boolean HitCheck(int bi, int mi, float r) {
       }
       aniArr.add(new Animation("zDeath", 5, m.getVector(), m.getR(),m.rotation()));
       monsterArr.remove(mi);
-      monsterDeath.trigger();
+      //monsterDeath.trigger();
     }
     bulletArr.remove(bi);
     return true;
@@ -199,6 +207,26 @@ void monsterMovement() {
     popMatrix();   
   }
 }
+void explode(Grenade g){
+  ArrayList<Monster> temp = new ArrayList<Monster>();
+  for(Monster m : monsterArr){
+    if(PVector.sub(g.getVector(),m.getVector()).mag() <= 150){
+      m.damage(g.getGrenadeDmg());
+      if (m.shouldDie()) {
+        temp.add(m);
+      }
+    }
+  }
+  for (Monster m : temp){
+    score+=10;
+    if(rand.nextInt(20) == 19){
+      puArr.add(new PowerUp(m.getX(),m.getY(),0,20));
+    }
+    aniArr.add(new Animation("zDeath", 5, m.getVector(), m.getR(),m.rotation()));
+    monsterArr.remove(m);
+    //monsterDeath.trigger();
+  }
+}
 //PowerUp Interactions
 void powerDisplay(){
   ArrayList<PowerUp> temp = new ArrayList<PowerUp>();
@@ -218,10 +246,27 @@ void powerConsume(){
     if(PVector.sub(p1.getVector(),p.getVector()).mag() <= 30){
       temp.add(p);
       p1.consume(p);
+      powerupS.trigger();
     }
   }
   for (PowerUp p:temp){
     puArr.remove(p);
+  }
+}
+//boom boom
+void grenadeDisplay(){
+  ArrayList<Grenade> temp = new ArrayList<Grenade>();
+  for (Grenade g:grenadeArr){
+    g.display();
+    g.shoot();
+    if(g.rInc()){
+      temp.add(g);
+    }
+  }
+  for (Grenade g:temp){
+    explode(g);
+    aniArr.add(new Animation("explosion", 4, (int)g.getX(), (int)g.getY(),140.0));
+    grenadeArr.remove(g);
   }
 }
 //SpecialFX
@@ -251,10 +296,10 @@ void mousePressed() {
     if (p1.getAtkSpd() == 0) {
       if (p1.fmode == 1) {
         laserp.trigger();
-        Bullet bull = new Bullet(p1.getX(), p1.getY(), 10, 3+p1.dMod, mouse);
+        Bullet bull = new Bullet(p1.getX(), p1.getY(), 10, 3*p1.dMod, mouse);
         bulletArr.add(bull);
         p1.aSr();
-      } else {
+      } else if (p1.fmode == 2) {
         laserp.trigger();
         Bullet bull1 = new Bullet(p1.getX(), p1.getY(), 10, 20+p1.dMod, mouse, 0);
         Bullet bull2 = new Bullet(p1.getX(), p1.getY(), 10, 20+p1.dMod, mouse, PI/6);
@@ -267,6 +312,9 @@ void mousePressed() {
         bulletArr.add(bull4);
         bulletArr.add(bull5);
         p1.aSr();
+      } else if (p1.fmode == 3){
+        grenadeArr.add(new Grenade(p1.getX(), p1.getY(), 10, 40*p1.dMod, mouse));
+        p1.switchF();
       }
     }
   } else if (mode == 1) {
@@ -322,6 +370,9 @@ void keyPressed() {
         p1.setAS(5);
       }
       p1.switchF();
+    }
+    if (key== 'g' || key== 'G') {
+      p1.getGrenade();
     }
   }
   if (key== 'm'||key=='M') {
