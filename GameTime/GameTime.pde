@@ -374,12 +374,12 @@ void keyPressed() {
       p1.setRight(true);
     }
     if (key== 'f' || key== 'F') {
-      if (p1.fmode>0) {
+      p1.switchF();
+      if (p1.fmode==2) {
         p1.setAS(20);
       } else {
         p1.setAS(5);
       }
-      p1.switchF();
     }
     if (key== 'g' || key== 'G') {
       p1.getGrenade();
