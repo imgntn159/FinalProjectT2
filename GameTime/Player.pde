@@ -1,6 +1,7 @@
 public class Player {
   private float x, y, w, h;
   private int health, atkSpd, aSCap, fmode, gAmmo;
+  private int effectlength;
   private PImage dude;
   int dMod;
   boolean left = false;
@@ -136,6 +137,15 @@ public class Player {
       }
     } else if (p.getType() == 1){
       gAmmo++;
+    } else if (p.getType() == 2){
+      effectlength = 600;
+      dMod = 2;
+    }
+  }
+  void effectDown(){
+    effectlength--;
+    if(effectlength <=0){
+      dMod = 1;
     }
   }
 }

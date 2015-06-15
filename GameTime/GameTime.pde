@@ -87,11 +87,18 @@ void draw() {
     translate(mouse.getX(), mouse.getY());
     rotate(radians(frameCount%360));
     translate(-mouse.getX(), -mouse.getY());
-    mouse.display();
+    if(p1.fmode == 2){
+      mouse.display1();
+    } else if(p1.fmode == 3){
+      mouse.display2();
+    } else {
+      mouse.display();
+    }
     popMatrix();
    
     p1.aSd();
     constantFIRE();
+    p1.effectDown();
     
     ArrayList<Bullet> tbulletArr = new ArrayList<Bullet>();
     for (Bullet b : bulletArr) {
@@ -127,8 +134,12 @@ void draw() {
     textSize(32); // Set text size to 32
     fill(0);
     text("Health: "+p1.getHealth(), 0, 40);
+    fill(0);
     text("Score: "+score, 0, 80);
     text("Grenades: "+p1.getGammo(), 0, 120);
+    if(p1.dMod != 1){
+      text("2x Damage!", 0, 160);
+    }
     
     if(!p1.alive()){
       textSize(90);
@@ -184,6 +195,8 @@ boolean HitCheck(int bi, int mi, float r) {
         puArr.add(new PowerUp(m.getX(),m.getY(),0,20));
       } else if(rand.nextInt(20) == 19){
         puArr.add(new PowerUp(m.getX(),m.getY(),1,1));
+      } else if(rand.nextInt(20) == 19){
+        puArr.add(new PowerUp(m.getX(),m.getY(),2,1));
       }
       aniArr.add(new Animation("zDeath", 5, m.getVector(), m.getR(),m.rotation()));
       monsterArr.remove(mi);
@@ -229,6 +242,10 @@ void explode(Grenade g){
     score+=10;
     if(rand.nextInt(20) == 19){
       puArr.add(new PowerUp(m.getX(),m.getY(),0,20));
+    } else if(rand.nextInt(20) == 19){
+      puArr.add(new PowerUp(m.getX(),m.getY(),1,1));
+    } else if(rand.nextInt(20) == 19){
+      puArr.add(new PowerUp(m.getX(),m.getY(),2,1));
     }
     aniArr.add(new Animation("zDeath", 5, m.getVector(), m.getR(),m.rotation()));
     monsterArr.remove(m);
@@ -309,11 +326,11 @@ void mousePressed() {
         p1.aSr();
       } else if (p1.fmode == 2) {
         laserp.trigger();
-        Bullet bull1 = new Bullet(p1.getX(), p1.getY(), 10, 20+p1.dMod, mouse, 0);
-        Bullet bull2 = new Bullet(p1.getX(), p1.getY(), 10, 20+p1.dMod, mouse, PI/6);
-        Bullet bull3 = new Bullet(p1.getX(), p1.getY(), 10, 20+p1.dMod, mouse, -PI/6);
-        Bullet bull4 = new Bullet(p1.getX(), p1.getY(), 10, 20+p1.dMod, mouse, PI/12);
-        Bullet bull5 = new Bullet(p1.getX(), p1.getY(), 10, 20+p1.dMod, mouse, -PI/12);
+        Bullet bull1 = new Bullet(p1.getX(), p1.getY(), 10, 20*p1.dMod, mouse, 0);
+        Bullet bull2 = new Bullet(p1.getX(), p1.getY(), 10, 20*p1.dMod, mouse, PI/6);
+        Bullet bull3 = new Bullet(p1.getX(), p1.getY(), 10, 20*p1.dMod, mouse, -PI/6);
+        Bullet bull4 = new Bullet(p1.getX(), p1.getY(), 10, 20*p1.dMod, mouse, PI/12);
+        Bullet bull5 = new Bullet(p1.getX(), p1.getY(), 10, 20*p1.dMod, mouse, -PI/12);
         bulletArr.add(bull1);
         bulletArr.add(bull2);
         bulletArr.add(bull3);
@@ -346,7 +363,7 @@ void constantFIRE(){
     if (p1.getAtkSpd() == 0) {
       if (p1.fmode == 1) {
         laserp.trigger();
-        Bullet bull = new Bullet(p1.getX(), p1.getY(), 10, 3+p1.dMod, mouse);
+        Bullet bull = new Bullet(p1.getX(), p1.getY(), 10, 3*p1.dMod, mouse);
         bulletArr.add(bull);
         p1.aSr();
       }

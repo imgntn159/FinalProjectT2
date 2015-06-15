@@ -18,7 +18,10 @@ Back to Menu: M
 -------
 - Zombies have a death animation
 - Grenades are a thing: they are limited and can be picked up, explode at cursor
+- Added Grenade pickup
+- Added damage doubler
 - All powerups now have a 1/20 chance of spawning
+- Added cursor changes for clarity
 
 6-13-15
 -------
