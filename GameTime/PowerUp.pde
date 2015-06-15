@@ -15,6 +15,8 @@ public class PowerUp {
     timer = 180;
     if (t == 0) {
       sprite = loadImage("health.PNG");
+    } else if (t == 1){
+      sprite = loadImage("bomb.png");
     }
   }
   public boolean timeOut() {

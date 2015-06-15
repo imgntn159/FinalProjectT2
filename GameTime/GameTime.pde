@@ -10,6 +10,8 @@ Minim powerS;
 AudioSample powerupS;
 Minim minim;
 AudioPlayer player;
+Minim explodem;
+AudioSample explodes;
 
 //awall
 PImage wall;
@@ -46,11 +48,13 @@ void setup() {
   monS = new Minim(this);
   laserm = new Minim(this);
   powerS = new Minim(this);
+  explodem = new Minim(this);
   
   player = minim.loadFile("sounds/song.mp3");
   monsterDeath = monS.loadSample("sounds/combobreak.wav");
   laserp = laserm.loadSample("sounds/laser.wav");
   powerupS = powerS.loadSample("sounds/powerup.wav");
+  explodes = explodem.loadSample("sounds/explosion.wav");
   
   score = 0;
 }
@@ -122,8 +126,9 @@ void draw() {
     
     textSize(32); // Set text size to 32
     fill(0);
-    text(""+p1.getHealth(), 0, 40);
-    text(""+score, 0, 80);
+    text("Health: "+p1.getHealth(), 0, 40);
+    text("Score: "+score, 0, 80);
+    text("Grenades: "+p1.getGammo(), 0, 120);
     
     if(!p1.alive()){
       textSize(90);
@@ -177,6 +182,8 @@ boolean HitCheck(int bi, int mi, float r) {
       score+=10;
       if(rand.nextInt(20) == 19){
         puArr.add(new PowerUp(m.getX(),m.getY(),0,20));
+      } else if(rand.nextInt(20) == 19){
+        puArr.add(new PowerUp(m.getX(),m.getY(),1,1));
       }
       aniArr.add(new Animation("zDeath", 5, m.getVector(), m.getR(),m.rotation()));
       monsterArr.remove(mi);
@@ -208,6 +215,7 @@ void monsterMovement() {
   }
 }
 void explode(Grenade g){
+  explodes.trigger();
   ArrayList<Monster> temp = new ArrayList<Monster>();
   for(Monster m : monsterArr){
     if(PVector.sub(g.getVector(),m.getVector()).mag() <= 150){
@@ -312,8 +320,10 @@ void mousePressed() {
         bulletArr.add(bull4);
         bulletArr.add(bull5);
         p1.aSr();
-      } else if (p1.fmode == 3){
+      } else if (p1.fmode == 3 && p1.hasGrenade()){
         grenadeArr.add(new Grenade(p1.getX(), p1.getY(), 10, 40*p1.dMod, mouse));
+        p1.switchF();
+      } else {
         p1.switchF();
       }
     }

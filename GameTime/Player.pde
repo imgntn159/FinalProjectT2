@@ -1,6 +1,6 @@
 public class Player {
   private float x, y, w, h;
-  private int health, atkSpd, aSCap, fmode;
+  private int health, atkSpd, aSCap, fmode, gAmmo;
   private PImage dude;
   int dMod;
   boolean left = false;
@@ -18,6 +18,7 @@ public class Player {
     dude = loadImage("Dude.png");
     fmode = 1;
     dMod = 1;
+    gAmmo = 3;
   }
   //access granted
   public float getX() {
@@ -34,6 +35,9 @@ public class Player {
       return 0;
     }
     return health;
+  }
+  public int getGammo(){
+    return gAmmo;
   }
   public void damage(int d) {
     health -= d; //reduces health by d
@@ -106,6 +110,14 @@ public class Player {
   boolean alive(){
     return health>0;
   }
+  boolean hasGrenade(){
+    boolean result = gAmmo > 0;
+    gAmmo--;
+    if(gAmmo < 0){
+      gAmmo = 0;
+    }
+    return result;
+  }
   void switchF(){
     if (fmode == 1){
       fmode = 2;
@@ -122,6 +134,8 @@ public class Player {
       if(health > 100){
         health = 100;
       }
+    } else if (p.getType() == 1){
+      gAmmo++;
     }
   }
 }
