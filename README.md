@@ -10,16 +10,15 @@
 Movement: WASD
 Firing: Left Mouse Click
 Switch firing modes: F
+Grenade: G
 Back to Menu: M
 
-#To Do [Immediate]
-- Add more monsters~~/add monster sprites~~
-- Add ~~a menu~~ maybe a pause menu
-- GRENADESSSSS
 
 6-14-15
 -------
 - Zombies have a death animation
+- Grenades are a thing: they are limited and can be picked up, explode at cursor
+- All powerups now have a 1/20 chance of spawning
 
 6-13-15
 -------
