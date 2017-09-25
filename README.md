@@ -4,7 +4,7 @@
 - TEAM NAME: Team Not Flaming Chipmunk Juggler
 - Current demo is up on the Master branch, use GameTime.pde under the GameTime folder and press play!
 
-# Project Name: Attack of the Black Balls
+# Project Name: Basic Zombie Shooter
 - A 2D top down shooter game similar to Hotline Miami. The player's objective is to stay alive as long as possible and rack up as many kills as possible. The ~~black balls~~ zombies of various speed and size will endlessly chase after the player until they have caught him and sucked his life energy. If the player runs out of life, he will die. The player is equipped with a gun that has infinite ammunition.
 
 Movement: WASD
